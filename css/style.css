@@ -1,0 +1,8 @@
+* {
+  font-family: inter;
+  box-sizing: border-box;
+}
+
+.d-none {
+  display: none !important;
+}

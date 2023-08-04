@@ -1,0 +1,254 @@
+.sidebar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  gap: 103px;
+  width: 232px;
+  height: 100vh;
+  background-color: #2a3647;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 101;
+}
+
+.nav-menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(205, 205, 205);
+  padding: 8px 60px;
+  gap: 20px;
+  white-space: nowrap;
+  font-family: inter;
+}
+
+.logo {
+  width: 100px;
+  height: 122px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.legal-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(205, 205, 205);
+  padding: 8px 60px;
+  gap: 20px;
+  font-family: inter;
+  white-space: nowrap;
+}
+
+.sidebar-focus {
+  background-color: rgb(10, 24, 48);
+}
+
+.sidebar-focus span {
+  color: white;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 232px;
+  right: 0;
+  height: 95px;
+  /* min-height: 65px; */
+  padding: 20px 36px 20px calc(348px - 232px);
+  font-size: 21px;
+  color: black;
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  z-index: 101;
+}
+
+.right-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-frame a {
+  height: max-content;
+}
+
+.log-out-modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+}
+
+.log-out-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  position: absolute;
+  top: 105px;
+  right: 35px;
+  min-width: 140px;
+  padding: 16px 21px;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: lighter;
+  text-align: center;
+  color: white;
+  background-color: rgb(41, 53, 70);
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  text-decoration: none;
+  outline: 1px solid white;
+}
+
+.log-out-modal > * {
+  cursor: pointer;
+}
+
+.log-out-modal a {
+  text-decoration: none;
+  color: white;
+  display: none;
+}
+
+.img-ellipse {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 26px;
+}
+
+#default-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  cursor: pointer;
+  font-weight: 400;
+  color: white;
+  font-size: 21px;
+}
+
+#img-profile {
+  position: absolute;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 47px;
+  height: 47px;
+  margin: auto;
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  /* Sidebar*/
+  .sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 95px;
+    min-height: 65px;
+    width: auto;
+    justify-content: space-around;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  #sidebar-legal {
+    display: none;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    width: 100%;
+    gap: 0;
+  }
+
+  .nav-menu a {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    min-height: 80%;
+    gap: 10px;
+    border-radius: 8px;
+  }
+
+  .sidebar-link-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    min-height: 65px;
+    width: 25%;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  /* Header */
+  .header {
+    left: 0;
+    padding: 0;
+  }
+
+  .header::before {
+    content: '';
+    background-image: url('../assets/img/logo-join.png ');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 55px;
+    width: 55px;
+    margin-left: 10px;
+  }
+
+  .header > span {
+    display: none;
+  }
+
+  .right-frame a {
+    display: none;
+  }
+
+  .right-frame {
+    position: absolute;
+    right: 25px;
+  }
+
+  .img-ellipse {
+    margin: 0;
+  }
+
+  .log-out-modal a {
+    display: block;
+  }
+}
