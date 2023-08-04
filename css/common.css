@@ -158,3 +158,39 @@ main {
     position: relative;
     height: calc(100vh - 90px);
 }
+
+#ovly{
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.50);
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    overflow: hidden;
+    transition: all var(--transtime) ease-in-out;
+    z-index: -1;
+}
+
+#ovly.showovly{
+    opacity: 1;
+    z-index: 3;
+    transition: opacity var(--transtime) ease-in-out;
+}
+
+#ovlyCard{
+    position: relative;
+    left: 1500px;
+    display: flex;
+    max-width: calc(100vw - 50px);
+    border-radius: 30px;
+    transition: left var(--transtime) ease-in-out;
+}
+
+#ovlyCard.showovlyCard{
+    left: 0;
+    transition: left var(--transtime) ease-in-out;
+}
