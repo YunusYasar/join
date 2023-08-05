@@ -32,7 +32,7 @@ header div {
 .arrow-back {
     position: absolute;
     position: absolute;
-    top: 30px;
+    top: 45px;
     left: 30px;
 }
 
@@ -52,6 +52,7 @@ a:hover {
 #content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: white;
     margin-inline: auto;
