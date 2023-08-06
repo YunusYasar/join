@@ -3,6 +3,34 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* colors */
+  --primcolor: #2a3647;
+  --seccolor: #091931;
+  --acccolor: #29abe2;
+
+  --bg-color: #f6f7f8;
+
+  /* font colors*/
+  --fntcolor: #cdcdcd;
+
+  /*font size*/
+  --fntsize12: 0.75rem; /*base:16px, 12px*/
+  --fntsizebase: 1rem; /*base:16px, 16px*/
+  --fntsize20: 1.25rem; /*base:16px, 20px*/
+  --fntsize21: 1.3125rem; /*base:16px, 21px*/
+  --fntsize27: 1.6875rem; /*base:16px, 27px*/
+  --fntsize47: 2.9375rem; /*base:16px, 47px*/
+  --fntsize61: 3.8125rem; /*base:16px, 61px*/
+
+  /* transition */
+  --transtime: 500ms;
+
+  /* shadow for box */
+  --drop-shadow: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.1));
+  --shadow-btn: drop-shadow(0px 5px 2px rgba(0, 0, 0, 0.1));
+}
+
 .d-none {
   display: none !important;
 }
