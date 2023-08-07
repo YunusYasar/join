@@ -11,13 +11,16 @@
     <link rel="stylesheet" href="css/contact.css" />
 
     <script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/contact.js"></script>
+
   </head>
-  <body onload="init()">
+  <body onload="initContacts()">
     <header class="header" w3-include-html="assets/templates/header.html"></header>
     <nav class="sidebar" w3-include-html="assets/templates/sidebar.html"></nav>
   
     <main id="boardMain">
-        <button onclick="" id="newContact" class="button-with-icon">
+        <button onclick="toggleAddContactModal()" id="newContact" class="button-with-icon">
           New contact
           <img src="assets/img/add-contact-icon.svg" alt="">
         </button>
@@ -25,7 +28,7 @@
         <section id="contactsList"></section>
     
         <section id="contactsOverview">
-          <img id="contactsBackImg" class="contacts-back d-none" onclick="window.location.reload()"
+          <img id="contactsBackImg" class="contacts-back d-none" onclick=""
           src="assets/img/arrow-left.svg">
           
           <div id="sub-header" class="sub-header">
@@ -45,7 +48,7 @@
     
         </section>
     
-        <section onclick="" id="addContactModal" class="modal-container">
+        <section onclick="toggleAddContactModal()" id="addContactModal" class="modal-container">
           <div onclick="" id="addContact" class="modal-inner-container">
             <div class="left-frame-add">
               <img src="assets/img/logo_Light.png" alt="Join logo">
@@ -61,22 +64,22 @@
                 <img src="assets/img/default-user.svg" alt="">
               </div>
     
-              <form class="user-form" id="addContactForm" onsubmit="">
+              <form class="user-form" id="addContactForm" onsubmit="addNewContact(); return false;">
                 <div class="input-wrapper">
                   <input id="contactName" required type="text" placeholder="Name">
-                  <img src="../assets/img/icons/user-icon.svg" alt="">
+                  <img src="assets/img/user-icon.svg" alt="">
                 </div>
                 <div class="input-wrapper">
                   <input id="contactEmail" required type="email" placeholder="Email">
-                  <img src="../assets/img/icons/login-email.svg" alt="">
+                  <img src="assets/img/login-email.svg" alt="">
                 </div>
                 <div class="input-wrapper">
                   <input id="contactPhone" required type="number" placeholder="Phone">
-                  <img src="../assets/img/icons/telephone.svg" alt="">
+                  <img src="assets/img/telephone.svg" alt="">
                 </div>
     
                 <div class="button-wrapper">
-                  <button onclick="" type="reset" class="button-secondary-with-icon">
+                  <button onclick="toggleAddContactModal()" type="reset" class="button-secondary-with-icon">
                    <span>Close</span>
                     <img src="assets/img/cancel-icon.svg" alt="">
                   </button>

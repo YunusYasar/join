@@ -96,7 +96,29 @@ main {
   cursor: pointer;
   padding: 15px 25px;
 }
-
+.user-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 36px;
+  width: 422px;
+}
+.user-form input {
+  width: 422px;
+  padding: 13px 41px 13px 21px;
+  border-radius: 10px;
+  font-size: 21px;
+  border: 1px solid var(--fntcolor);
+}
+.input-wrapper {
+  position: relative;
+}
+.input-wrapper img {
+  position: absolute;
+  top: 26.5px;
+  right: 21px;
+  transform: translateY(-50%);
+}
 .contact-container:hover {
   background-color: #d1d1d1;
 }
@@ -433,6 +455,30 @@ main {
 
 .button-with-icon:hover {
   background-color: var(--acccolor);
+  box-shadow: var(--shadow-btn);
+}
+
+.button-secondary-with-icon {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  width: 136px;
+  height: 55px;
+  padding: 18px 10px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: none;
+  outline: 1px solid var(--primcolor);
+  color: var(--primcolor);
+  font-size: 21px;
+  background: none;
+  transition: ease-in-out 100ms;
+}
+.button-secondary-with-icon:hover {
+  color: var(--acccolor);
+  outline: 2px solid var(--acccolor);
   box-shadow: var(--shadow-btn);
 }
 
