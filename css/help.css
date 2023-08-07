@@ -1,0 +1,63 @@
+#contentHelp {
+    padding: 180px 120px 10px 340px;
+
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+#wrapperHL {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 48px;
+}
+
+#btnreturn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+#wrapperTxt {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.chapter{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h2 {
+    font-size: 27px;
+    margin: 0;
+}
+
+p{
+    margin: 0;
+}
+
+ol{
+    margin-left: 27px;
+    padding-left: 0;
+}
+
+.numberListelement {
+    padding-left: 35px;
+}
+
+li::marker {
+    font-size: 27px;
+}
+
+li:not(:last-child) {
+    margin-bottom: 10px;
+}
