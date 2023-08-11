@@ -11,32 +11,34 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/fonts.css">
 
+    <script src="js/main.js"></script>
+    <script src="js/login.js"></script>
 </head>
 
-<body>
-    <img class="logo" src="assets/img/logo-big.svg" alt="Join Logo"><img class="logoW" src="assets/img/logo-big.svg" alt="Join Logo">
+<body onload="initLogin()">
+    <img class="logo" src="assets/img/logo-big.svg" alt="Join Logo">
     <main>
         <header>
             <div id="signUp">
                 <p>Not a Join user?</p>
-                <button class="but-dark" >Sign up</button>
+                <button class="but-dark" onclick="renderHTML('content', SingupHTML);hideElementID('signUp')">Sign up</button>
             </div>
         </header>
         <div id="content">
             <h1>Log in</h1>
             <div id="underline"></div>
-            <form>
+            <form onsubmit="login(); return false">
                 <input type="email" id="email" name="Email" placeholder="Email" required>
-                <input type="password" id="pwd" name="Password" placeholder="Password" required>
+                <input type="password" id="pwd" name="Password" placeholder="Password" ondblclick="togglPwd('pwd')" onfocusout="hidePwd('pwd')" required>
                 <span id="msgPwd"></span>
                 <div class="pwd-ext">
                     <input type="checkbox" name="Remember" id="saveLogin">
                     <label for="saveLogin">Remember me</label>
-                    <a>Forgot my password</a>
+                    <a onclick="renderHTML('content',PwdHTML);hideElementID('signUp')">Forgot my password</a>
                 </div>
                 <div class="but-area">
                     <button class="but-dark">Log in</button>
-                    <button class="but-light">Guest Log in</button>
+                    <button class="but-light" onclick="loginGuest()">Guest Log in</button>
                 </div>
             </form>
         </div>

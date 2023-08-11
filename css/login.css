@@ -45,8 +45,8 @@ header div {
 .arrow-back {
     position: absolute;
     position: absolute;
-    top: 30px;
-    left: 45px;
+    top: 45px;
+    left: 30px;
 }
 
 .arrow-back:hover {
