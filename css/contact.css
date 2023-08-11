@@ -11,7 +11,9 @@ main {
   overflow: hidden;
   position: relative;
 }
-
+.d-none {
+  display: none;
+}
 .bold {
   font-weight: bold;
 }
@@ -29,10 +31,8 @@ main {
 /* ===== Sub-Header ===== */
 .sub-header {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 30px;
-  padding-left: 60px;
 }
 
 .sub-header h1 {
@@ -62,7 +62,7 @@ main {
 #contactsList {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   min-width: 380px;
   background-color: white;
   min-height: calc(100vh - 95px);
@@ -90,8 +90,18 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
   gap: 35px;
-  margin: 15px;
+  /* margin: 15px; */
+  border-radius: 10px;
+  cursor: pointer;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 95%;
+  gap: 35px;
   border-radius: 10px;
   cursor: pointer;
   padding: 15px 25px;
@@ -123,8 +133,9 @@ main {
   background-color: #d1d1d1;
 }
 
-.contact-container-focus {
+.contact-container:focus {
   background-color: var(--primcolor);
+  color: white;
 }
 
 .contact-container-focus:hover {
@@ -169,15 +180,15 @@ main {
   border: 1px solid white;
 }
 
-/* ===== Scrollbar CSS ===== */
+/* ===== Scrollbar CSS =====
 /* Firefox */
-#contactsList {
+/* #contactsList {
   scrollbar-width: auto;
   scrollbar-color: #a8a8a8 #ffffff;
-}
+} */
 
 /* Chrome, Edge, and Safari */
-#contactsList::-webkit-scrollbar {
+/* #contactsList::-webkit-scrollbar {
   width: 20px;
 }
 
@@ -201,7 +212,7 @@ main {
   background-image: url('../assets/img/icons/scrollbar-down.svg');
   background-repeat: no-repeat;
   background-position: center;
-}
+} */
 
 /* ===== Contact Modals ===== */
 .modal-container {
@@ -324,88 +335,53 @@ main {
 
 #currentContact {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 21px;
-  position: relative;
   left: 300%;
   transition: 225ms;
 }
 
-/* First Child */
-#currentContact div:first-child {
+.contact-head {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   align-items: center;
   gap: 54px;
 }
-
-#currentContact div:first-child h3 {
+.contact-head h3 {
   font-size: 47px;
   font-weight: 500;
   margin: 0;
   word-break: break-word;
 }
-
-#currentContact div:first-child span svg path {
-  stroke: var(--acccolor);
-}
-
-#currentContact div:first-child span {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  gap: 13px;
-  color: var(--acccolor);
-}
-
-#currentContact div:first-child span:hover svg path {
-  stroke-width: 3;
-}
-
-#currentContact div:first-child span:hover {
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Second Child */
-#currentContact > div:nth-child(2) {
+.contact-underline {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 74px;
   gap: 59px;
-}
-
-#currentContact > div:nth-child(2) > span:first-child {
   font-size: 21px;
-  font-weight: 400;
 }
-
-#currentContact > div:nth-child(2) > span:last-child:hover {
-  cursor: pointer;
+.edit-contact {
+  gap: 13px;
+}
+.edit-contact:hover {
   color: var(--acccolor);
   font-weight: 600;
+  cursor: pointer;
 }
-
-#currentContact > div:nth-child(2) > span:last-child:hover svg path {
-  fill: var(--acccolor);
+.edit-contact img:hover {
+  color: var(--acccolor);
 }
-
-#currentContact > div:nth-child(2) span svg {
-  margin-right: 6px;
+.contact-parts {
+  margin-top: 15px;
+  text-decoration: none;
 }
-
-/* Third & Fourth Child*/
-#currentContact > div:nth-child(3) a {
+.contact-parts a {
   display: inline-flex;
   margin-top: 15px;
   text-decoration: none;
   color: rgb(23, 118, 233);
-}
-
-#currentContact > div:nth-child(4) a {
-  display: inline-flex;
-  text-decoration: none;
-  color: rgb(23, 118, 233);
-  margin-top: 15px;
 }
 
 /* Current Contact Animation */
@@ -482,6 +458,84 @@ main {
   box-shadow: var(--shadow-btn);
 }
 
+.contact-created-message {
+  position: absolute;
+  bottom: -75px;
+  left: 530px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  color: white;
+  font-size: 21px;
+  width: 326px;
+  height: 74px;
+
+  background: #2a3647;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+.slide-up {
+  -webkit-animation: slide-up 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-up 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-up {
+  0% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-250%);
+    transform: translateY(-250%);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-250%);
+    transform: translateY(-250%);
+  }
+}
+
+.slide-down {
+  -webkit-animation: slide-down 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-down 1.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-down {
+  0% {
+    -webkit-transform: translateY(-250%);
+    transform: translateY(-250%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    -webkit-transform: translateY(-250%);
+    transform: translateY(-250%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
 @media (max-width: 1330px) {
   #contactsOverview {
     display: flex;
@@ -541,8 +595,8 @@ main {
     right: 0;
     bottom: 0;
     top: 0;
-    opacity: 0;
-    z-index: -1;
+    /* opacity: 0; */
+    z-index: 1;
     background-color: var(--bg-color);
   }
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join - Summary</title>
+    <title>Join - Contacts</title>
     <link rel="icon" type="image/x-icon" href="assets/img/join-logo-summary.png" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
@@ -19,17 +19,18 @@
     <header class="header" w3-include-html="assets/templates/header.html"></header>
     <nav class="sidebar" w3-include-html="assets/templates/sidebar.html"></nav>
   
-    <main id="boardMain">
-        <button onclick="toggleAddContactModal()" id="newContact" class="button-with-icon">
+    <main id="boardMain" style="position: relative;">
+        <button onclick="addContactModal()" id="newContact" class="button-with-icon">
           New contact
           <img src="assets/img/add-contact-icon.svg" alt="">
         </button>
+        <div id="contact-created-message" class="contact-created-message d-none">
+          Contact succesfully created
+        </div>
+        <section id="contactsList" style="z-index: 999;"></section>
     
-        <section id="contactsList"></section>
-    
-        <section id="contactsOverview">
-          <img id="contactsBackImg" class="contacts-back d-none" onclick=""
-          src="assets/img/arrow-left.svg">
+        <section id="contactsOverview" style="z-index: 0;">
+          <img id="contactsBackImg" class="contacts-back" onclick="changeZindex()" src="assets/img/arrow-left.svg">
           
           <div id="sub-header" class="sub-header">
             <h1>Contacts</h1>
@@ -48,8 +49,8 @@
     
         </section>
     
-        <section onclick="toggleAddContactModal()" id="addContactModal" class="modal-container">
-          <div onclick="" id="addContact" class="modal-inner-container">
+        <section onclick="addContactModal()" id="addContactModal" class="modal-container">
+          <div onclick="noClose(event)" id="addContact" class="modal-inner-container">
             <div class="left-frame-add">
               <img src="assets/img/logo_Light.png" alt="Join logo">
               <div class="contact-info">
@@ -57,14 +58,11 @@
                 <h2>Tasks are better with a team!</h2>
               </div>
             </div>
-    
             <div class="right-frame-add">
-    
               <div class="img-wrapper">
                 <img src="assets/img/default-user.svg" alt="">
               </div>
-    
-              <form class="user-form" id="addContactForm" onsubmit="addNewContact(); return false;">
+              <form class="user-form" id="addContactForm" onsubmit="addContact(event); return false;">
                 <div class="input-wrapper">
                   <input id="contactName" required type="text" placeholder="Name">
                   <img src="assets/img/user-icon.svg" alt="">
@@ -77,9 +75,8 @@
                   <input id="contactPhone" required type="number" placeholder="Phone">
                   <img src="assets/img/telephone.svg" alt="">
                 </div>
-    
                 <div class="button-wrapper">
-                  <button onclick="toggleAddContactModal()" type="reset" class="button-secondary-with-icon">
+                  <button onclick="addContactModal()" type="reset" class="button-secondary-with-icon">
                    <span>Close</span>
                     <img src="assets/img/cancel-icon.svg" alt="">
                   </button>
@@ -89,11 +86,12 @@
                   </button>
                 </div>
               </form>
-    
             </div>
         </section>
-    
-        <section onclick="" id="editContactModal" class="modal-container"></section>
+
+        <section onclick="editContactModal(document.getElementById('editingIndex').value)" id="editContactModal" class="modal-container" >
+
+        </section>
       </main>
     
     

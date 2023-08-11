@@ -353,6 +353,28 @@ textarea::placeholder {
   outline: 2px solid var(--acccolor);
   box-shadow: var(--shadow-btn);
 }
+.button-with-icon {
+  background-color: var(--primcolor);
+  color: white;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  height: 55px;
+  padding: 18px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: unset;
+  border-radius: 10px;
+  transition: all ease-in-out 100ms;
+}
+
+.button-with-icon:hover {
+  background-color: var(--acccolor);
+  box-shadow: var(--shadow-btn);
+}
 
 @media (max-width: 1200px) {
   main {
