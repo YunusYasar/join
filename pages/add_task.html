@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Summary</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/join-logo-summary.png" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/header-sidebar.css" />
-    <link rel="stylesheet" href="css/add-task.css" />
-    <link rel="stylesheet" href="css/add-task2.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/header-sidebar.css" />
+    <link rel="stylesheet" href="../css/add-task.css" />
+    <link rel="stylesheet" href="../css/add-task2.css" />
 
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
   </head>
   <body onload="init()">
-    <header class="header" w3-include-html="assets/templates/header.html"></header>
-    <nav class="sidebar" w3-include-html="assets/templates/sidebar.html"></nav>
+    <header class="header" w3-include-html="../assets/templates/header.html"></header>
+    <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
 
     <main>
       <section>
@@ -37,7 +37,7 @@
               <div onclick="" id="category">
                 <div>
                   <span>Select task category</span>
-                  <img class="open-arrow" src="assets/img/open-select-arrow.svg" alt="arrow-down" />
+                  <img class="open-arrow" src="../assets/img/open-select-arrow.svg" alt="arrow-down" />
                 </div>
               </div>
               <div class="d-none" id="color-picker-box"></div>
@@ -49,7 +49,7 @@
               <div onclick="" id="assigned-to">
                 <div>
                   <span>Select contacts to assign</span>
-                  <img class="open-arrow" src="assets/img/open-select-arrow.svg" alt="arrow-down" />
+                  <img class="open-arrow" src="../assets/img/open-select-arrow.svg" alt="arrow-down" />
                 </div>
               </div>
               <div id="errorTagAssign" class="error-msg-task d-none">Please assign the task to at least one person</div>
@@ -70,15 +70,15 @@
                 <div id="prio-box">
                   <div id="high-prio-box" onclick="">
                     <span>Urgent</span>
-                    <img src="assets/img/high-prio-icon-small.svg" alt="high-prio" />
+                    <img src="../assets/img/high-prio-icon-small.svg" alt="high-prio" />
                   </div>
                   <div id="medium-prio-box" onclick="">
                     <span>Medium</span>
-                    <img src="assets/img/medium-prio-icon-small.svg" alt="medium-prio" />
+                    <img src="../assets/img/medium-prio-icon-small.svg" alt="medium-prio" />
                   </div>
                   <div id="low-prio-box" onclick="">
                     <span>Low</span>
-                    <img src="assets/img/low-prio-icon-small.svg" alt="low-prio" />
+                    <img src="../assets/img/low-prio-icon-small.svg" alt="low-prio" />
                   </div>
                 </div>
                 <div id="errorTagPrio" class="error-msg-task d-none">Please select a priority</div>
@@ -89,9 +89,9 @@
                 <div class="input-with-icons">
                   <input placeholder="Add new subtask" id="subtask-input" type="text" name="subtask-input" />
                   <div class="input-icon-box">
-                    <img onclick="" class="subtask-img" src="assets/img/cancel-icon.svg" alt="" />
+                    <img onclick="" class="subtask-img" src="../assets/img/cancel-icon.svg" alt="" />
                     <div class="seperator-small"></div>
-                    <img onclick="" class="subtask-img" src="assets/img/checkmark-icon-black.svg" alt="" />
+                    <img onclick="" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -99,10 +99,10 @@
             </div>
             <div class="form-right-bottom-box">
               <div class="button-box">
-                <button class="button-secondary-with-icon" type="reset">Clear <img src="assets/img/cancel-icon.svg" alt="" /></button>
+                <button class="button-secondary-with-icon" type="reset">Clear <img src="../assets/img/cancel-icon.svg" alt="" /></button>
                 <button id="submit-button" class="button-with-icon" type="submit">
                   Create Task
-                  <img src="assets/img/checkmark-icon.svg" alt="" />
+                  <img src="../assets/img/checkmark-icon.svg" alt="" />
                 </button>
               </div>
             </div>
@@ -113,7 +113,7 @@
     </main>
     <div id="addTaskConfirmModal" class="confirm-modal">
       <span>Task added to board</span>
-      <img src="assets/img/sidebar-board.svg" alt="" />
+      <img src="../assets/img/sidebar-board.svg" alt="" />
     </div>
   </body>
 </html>

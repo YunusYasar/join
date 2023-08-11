@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Summary</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/join-logo-summary.png" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/header-sidebar.css" />
-    <link rel="stylesheet" href="css/board.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/header-sidebar.css" />
+    <link rel="stylesheet" href="../css/board.css" />
 
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
   </head>
   <body onload="init()">
-    <header class="header" w3-include-html="assets/templates/header.html"></header>
-    <nav class="sidebar" w3-include-html="assets/templates/sidebar.html"></nav>
+    <header class="header" w3-include-html="../assets/templates/header.html"></header>
+    <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
 
     <main id="boardMain">
       <div class="bord-header">
@@ -23,12 +23,12 @@
           <div class="input-wrapper">
             <input oninput="" placeholder="Find Task" type="text" name="" id="search-task-input" />
             <div>
-              <img src="assets/img/search-icon.svg" alt="search" />
+              <img src="../assets/img/search-icon.svg" alt="search" />
             </div>
           </div>
           <button id="addTaskBtn" onclick="" class="button-with-icon">
             <span>Add Task</span>
-            <img src="assets/img/add-task-icon.svg" alt="" />
+            <img src="../assets/img/add-task-icon.svg" alt="" />
           </button>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div class="drag-and-drop-header">
             <span>To do</span>
             <div onclick="">
-              <img src="assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
+              <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
           <div id="to-do-area" ondrop="" ondragleave="" ondragover="" class="drag-area"></div>
@@ -46,7 +46,7 @@
           <div class="drag-and-drop-header">
             <span>In progress</span>
             <div onclick="">
-              <img src="assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
+              <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
           <div id="in-progress-area" ondrop="" ondragleave="" ondragover="" class="drag-area"></div>
@@ -55,7 +55,7 @@
           <div class="drag-and-drop-header">
             <span>Awaiting Feedback</span>
             <div onclick="">
-              <img src="assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
+              <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
           <div id="awaiting-feedback-area" ondragleave="" ondrop="moveTo('awaiting-feedback')" ondragover="" class="drag-area"></div>
@@ -64,7 +64,7 @@
           <div class="drag-and-drop-header">
             <span>Done</span>
             <div onclick="">
-              <img src="assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
+              <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
           <div id="done-area" ondragleave="" ondrop="moveTo('done')" ondragover="" class="drag-area"></div>
