@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="css/header-sidebar.css" />
     <link rel="stylesheet" href="css/contact.css" />
 
-    <script src="js/script.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/contact.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/contact.js"></script>
 
   </head>
   <body onload="initContacts()">
-    <header class="header" w3-include-html="assets/templates/header.html"></header>
-    <nav class="sidebar" w3-include-html="assets/templates/sidebar.html"></nav>
+    <header class="header" w3-include-html="../assets/templates/header.html"></header>
+    <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
   
     <main id="boardMain" style="position: relative;">
         <button onclick="addContactModal()" id="newContact" class="button-with-icon">
           New contact
-          <img src="assets/img/add-contact-icon.svg" alt="">
+          <img src="../assets/img/add-contact-icon.svg" alt="">
         </button>
         <div id="contact-created-message" class="contact-created-message d-none">
           Contact succesfully created
@@ -52,7 +52,7 @@
         <section onclick="addContactModal()" id="addContactModal" class="modal-container">
           <div onclick="noClose(event)" id="addContact" class="modal-inner-container">
             <div class="left-frame-add">
-              <img src="assets/img/logo_Light.png" alt="Join logo">
+              <img src="../assets/img/logo_Light.png" alt="Join logo">
               <div class="contact-info">
                 <h1>Add contact</h1>
                 <h2>Tasks are better with a team!</h2>
@@ -60,29 +60,29 @@
             </div>
             <div class="right-frame-add">
               <div class="img-wrapper">
-                <img src="assets/img/default-user.svg" alt="">
+                <img src="../assets/img/default-user.svg" alt="">
               </div>
               <form class="user-form" id="addContactForm" onsubmit="addContact(event); return false;">
                 <div class="input-wrapper">
                   <input id="contactName" required type="text" placeholder="Name">
-                  <img src="assets/img/user-icon.svg" alt="">
+                  <img src="../assets/img/user-icon.svg" alt="">
                 </div>
                 <div class="input-wrapper">
                   <input id="contactEmail" required type="email" placeholder="Email">
-                  <img src="assets/img/login-email.svg" alt="">
+                  <img src="../assets/img/login-email.svg" alt="">
                 </div>
                 <div class="input-wrapper">
                   <input id="contactPhone" required type="number" placeholder="Phone">
-                  <img src="assets/img/telephone.svg" alt="">
+                  <img src="../assets/img/telephone.svg" alt="">
                 </div>
                 <div class="button-wrapper">
                   <button onclick="addContactModal()" type="reset" class="button-secondary-with-icon">
                    <span>Close</span>
-                    <img src="assets/img/cancel-icon.svg" alt="">
+                    <img src="../assets/img/cancel-icon.svg" alt="">
                   </button>
                   <button class="button-with-icon">
                     <span>Create contact</span>
-                    <img src="assets/img/checkmark-icon.svg" alt="">
+                    <img src="../assets/img/checkmark-icon.svg" alt="">
                   </button>
                 </div>
               </form>
