@@ -1,5 +1,6 @@
 body {
   overflow: hidden;
+  margin: 0;
 }
 
 main {
@@ -364,6 +365,7 @@ main {
 }
 .edit-contact {
   gap: 13px;
+  margin-right: 14px;
 }
 .edit-contact:hover {
   color: var(--acccolor);
@@ -743,7 +745,9 @@ main {
     min-height: 80vh;
     padding-bottom: 50px;
   }
-
+  #contactsOverview {
+    padding: 20px;
+  }
   .sub-header p {
     display: block;
   }
@@ -771,9 +775,24 @@ main {
   .right-frame-add {
     padding-top: 60px;
   }
-
+  .contact-head {
+    gap: 24px;
+  }
+  #currentContact div:first-child h3 {
+    font-size: 30px;
+  }
   .left-frame-add {
     padding: 36px 26px;
+  }
+  .contact-underline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 74px;
+    gap: 20px;
+    font-size: 21px;
+    margin: 20px 0px 20px 0px;
   }
 }
 

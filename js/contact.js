@@ -91,12 +91,13 @@ function renderContactCard(index) {
   contact.color = contact.color;
   let contactCardHTML = currentContactHTML(contact, index);
   document.getElementById('currentContact').innerHTML = contactCardHTML;
-  document.getElementById('contactsOverview').style['z-index'] = 999;
+  document.getElementById('contactsOverview').style['z-index'] = 99;
   document.getElementById('contactsList').style['z-index'] = 0;
 }
 function changeZindex() {
   document.getElementById('contactsOverview').style['z-index'] = 0;
-  document.getElementById('contactsList').style['z-index'] = 999;
+  document.getElementById('contactsList').style['z-index'] = 99;
+  document.getElementById('newContact').style['z-index'] = 999;
 }
 async function addContact(event) {
   event.preventDefault();
@@ -211,7 +212,7 @@ function editContactModalHTML(contact, i) {
   return `
   <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
    <div class="left-frame-add">
-     <img src="assets/img/logo_Light.png" alt="Join logo">
+     <img src="../assets/img/logo_Light.png" alt="Join logo">
      <div class="contact-info">
        <h1>Edit contact</h1>
      </div>
@@ -224,24 +225,24 @@ function editContactModalHTML(contact, i) {
        <input type="hidden" id="editingIndex">
        <div class="input-wrapper">
          <input id="editContactName" required type="text" placeholder="Name">
-         <img src="assets/img/user-icon.svg" alt="">
+         <img src="../assets/img/user-icon.svg" alt="">
        </div>
        <div class="input-wrapper">
          <input id="editContactEmail" required type="email" placeholder="Email">
-         <img src="assets/img/login-email.svg" alt="">
+         <img src="../assets/img/login-email.svg" alt="">
        </div>
        <div class="input-wrapper">
          <input id="editContactPhone" required type="number" placeholder="Phone">
-         <img src="assets/img/telephone.svg" alt="">
+         <img src="../assets/img/telephone.svg" alt="">
        </div>
        <div class="button-wrapper">
          <button onclick="deleteContact(${i})" type="reset" class="button-secondary-with-icon">
           <span>Delete</span>
-           <img src="assets/img/cancel-icon.svg" alt="">
+           <img src="../assets/img/cancel-icon.svg" alt="">
          </button>
          <button class="button-with-icon">
            <span>Save</span>
-           <img src="assets/img/checkmark-icon.svg" alt="">
+           <img src="../assets/img/checkmark-icon.svg" alt="">
          </button>
        </div>
      </form>
@@ -262,14 +263,16 @@ function currentContactHTML(contact, i) {
   <div>
   <div class="contact-underline">
       <span>Contact Information</span>
+      <div class="currentAction">
       <span class="edit-contact" onclick="deleteContact(${i})">
-          <img class="pencil-img" src="assets/img/delete.svg" alt="">
+          <img class="pencil-img" src="../assets/img/delete.svg" alt="">
           Delete
       </span>
       <span class="edit-contact" onclick="editContactModal(${i})">
-          <img class="pencil-img" src="assets/img/edit.svg" alt="">
+          <img class="pencil-img" src="../assets/img/edit.svg" alt="">
           Edit Contact
       </span>
+      </div>
   </div>
   </div>
   <div class="contact-parts">
@@ -279,18 +282,6 @@ function currentContactHTML(contact, i) {
   <div class="contact-parts">
       <div class="bold">Phone</div>
       <a href="tel:${contact.phone}">${contact.phone}</a>
-  </div>
-  <div class="mobile-addons">
-      <div class="mobile-contact-btn-container">
-          <button onclick="deleteContact(${i})" class="button-secondary-with-icon">
-              <img class="pencil-img" src="assets/img/cancel-icon.svg" alt="">
-              Delete
-          </button>
-          <button onclick="editContact(${i})" class="button-with-icon">
-              Save
-              <img src="assets/img/checkmark-icon.svg" alt="">
-          </button>
-      </div>
   </div>
 </div>`;
 }
