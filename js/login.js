@@ -37,7 +37,7 @@ let PwdHTML = /*html*/`
         <h1>I forgot my password</h1>
         <div id="underline"></div>
         <p>Don't worry! We will send you an email with the istructions to reset your password.</p>
-        <form action="https://join-615.developerakademie.net/php/send_mail_change_pwd.php" method="POST"> 
+        <form action="https://join-649.developerakademie.net/php/send_mail_change_pwd.php" method="POST"> 
             <input type="email" id="email" name="Email" placeholder="Email" required>
             <span id="msgMail"></span>
             <button class="but-dark">Send me the email</button>

@@ -1,5 +1,5 @@
 // constants
-const STORAGE_TOKEN = 'ZC2Y587W1PWRYY1WEBT2KNWJKKLT0W9EU32TPB2B';
+const STORAGE_TOKEN = 'T8IB87MOO0BRJLZ0W0I4O7DAUN6QZYEBWX8ZNG9M';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 const URL_PARAMS = new URLSearchParams(window.location.search);
 const USER = URL_PARAMS.get('user');
