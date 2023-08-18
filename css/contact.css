@@ -21,8 +21,10 @@ main {
 
 #newContact {
   position: absolute;
-  bottom: 64px;
-  right: 47px;
+  width: 280px;
+  left: 40px;
+  top: 16px;
+  z-index: 999;
 }
 
 .mobile-addons {
@@ -71,6 +73,7 @@ main {
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  z-index: 99;
 }
 
 .line-list {
@@ -152,6 +155,9 @@ main {
   flex-direction: column;
   margin-top: 25px;
 }
+.contact-wrapper:first-child {
+  margin-top: 68px;
+}
 
 .contactlist-data {
   display: flex;
@@ -180,40 +186,6 @@ main {
   color: white;
   border: 1px solid white;
 }
-
-/* ===== Scrollbar CSS =====
-/* Firefox */
-/* #contactsList {
-  scrollbar-width: auto;
-  scrollbar-color: #a8a8a8 #ffffff;
-} */
-
-/* Chrome, Edge, and Safari */
-/* #contactsList::-webkit-scrollbar {
-  width: 20px;
-}
-
-#contactsList::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-#contactsList::-webkit-scrollbar-thumb {
-  background-color: #a8a8a8;
-  border-radius: 20px;
-  border: 7px solid #ffffff;
-}
-
-#contactsList::-webkit-scrollbar-button:single-button:vertical:decrement {
-  background-image: url('../assets/img/icons/scrollbar-up.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-#contactsList::-webkit-scrollbar-button:single-button:vertical:increment {
-  background-image: url('../assets/img/icons/scrollbar-down.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-} */
 
 /* ===== Contact Modals ===== */
 .modal-container {
@@ -326,6 +298,7 @@ main {
 
 #contactsOverview {
   padding: 50px;
+  z-index: 0;
 }
 
 #contactsOverview button {
@@ -420,8 +393,7 @@ main {
   font-weight: 700;
   cursor: pointer;
   display: flex;
-  height: 55px;
-  padding: 18px 15px;
+  height: 50px;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -589,8 +561,11 @@ main {
   #contactsList {
     width: 100%;
     padding-top: 50px;
+    align-items: center;
   }
-
+  .contact-card {
+    justify-content: center;
+  }
   #contactsOverview {
     position: absolute;
     left: 0;
@@ -614,10 +589,21 @@ main {
   }
 
   #newContact {
-    top: 35px;
-    right: 20px;
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    left: auto;
+    top: auto;
+    bottom: 45px;
+    right: 30px;
   }
-
+  #newContact span {
+    display: none;
+  }
+  .contact-wrapper:first-child {
+    margin-top: 0px;
+  }
   #currentContact > div:nth-child(2) > span:last-child {
     display: none;
   }
@@ -793,6 +779,13 @@ main {
     gap: 20px;
     font-size: 21px;
     margin: 20px 0px 20px 0px;
+  }
+  .sub-header h1 {
+    font-size: 47px;
+    margin-top: 10px;
+  }
+  .sub-header h3 {
+    font-size: 20px;
   }
 }
 

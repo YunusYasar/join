@@ -1,7 +1,9 @@
 * {
   margin: 0;
 }
-
+body {
+  overflow: hidden;
+}
 main {
   margin-left: 232px;
   /*sidebar-width*/
@@ -117,7 +119,7 @@ input::placeholder {
 
 .drag-and-drop-header > div:hover {
   border: 2px solid var(--acccolor);
-  color: var(--accccolor);
+  color: var(--acccolor);
 }
 
 .button-secondary-with-icon:hover img {
@@ -643,9 +645,9 @@ input::placeholder {
     position: static !important;
   }
 
-  .button-box {
+  /* .button-box {
     display: none !important;
-  }
+  } */
 
   #mobileTaskBtn {
     display: flex;
@@ -653,7 +655,7 @@ input::placeholder {
   }
 
   #submit-button {
-    position: absolute;
+    /* position: absolute; */
     z-index: 1000 !important;
     top: 19px;
     right: 19px;

@@ -21,15 +21,15 @@
   
     <main id="boardMain" style="position: relative;">
         <button onclick="addContactModal()" id="newContact" class="button-with-icon">
-          New contact
+          <span>Add new contact</span>
           <img src="../assets/img/add-contact-icon.svg" alt="">
         </button>
         <div id="contact-created-message" class="contact-created-message d-none">
           Contact succesfully created
         </div>
-        <section id="contactsList" style="z-index: 99;"></section>
+        <section id="contactsList"></section>
     
-        <section id="contactsOverview" style="z-index: 0;">
+        <section id="contactsOverview">
           <img id="contactsBackImg" class="contacts-back" onclick="changeZindex()" src="../assets/img/arrow-left.svg">
           
           <div id="sub-header" class="sub-header">
@@ -39,7 +39,6 @@
           </div>
     
           <div id="sub-header-mobile" class="sub-header">
-            <p>Kanban Project Managment Tool</p>
             <h1>Contacts</h1>
             <h3>Better with a team</h3>
             <div class="line"></div>

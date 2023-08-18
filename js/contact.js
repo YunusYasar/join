@@ -13,6 +13,10 @@ const colors = {
 
 async function initContacts() {
   await includeHTML();
+  loadContacts();
+}
+
+async function loadContacts() {
   try {
     let storedContacts = await getItem('contacts');
     if (storedContacts) {
@@ -58,7 +62,6 @@ function appendContact(contactsList, contact, index) {
   let initials = getInitials(contact.name);
   let contactContainer = document.createElement('div');
   contactContainer.className = 'contact-container';
-  contactContainer.setAttribute('tabindex', '0');
   contactContainer.innerHTML = `
       <div class="contact-card" onclick="renderContactCard(${index});">
         <div class="contact-avatar" style="background-color: ${color}">
@@ -117,9 +120,6 @@ async function addContact(event) {
 }
 
 async function updateContact(index) {
-  // let index = document.getElementById('editingIndex').value;
-  // index = parseInt(index, 10); // Stellen Sie sicher, dass der Index als Zahl interpretiert wird
-
   let name = document.getElementById('editContactName').value;
   let email = document.getElementById('editContactEmail').value;
   let phone = document.getElementById('editContactPhone').value;
@@ -132,7 +132,6 @@ async function updateContact(index) {
   showUserFeedbackMessage('Contact successfully updated');
   renderContacts();
   renderContactCard(index);
-  closeEditContactModal();
 }
 function addContactModal() {
   addContactForm.reset();
@@ -162,22 +161,13 @@ function editContactModal(index) {
   child.classList.toggle('modal-animation');
 }
 
-function closeEditContactModal() {
-  let parent = document.getElementById('editContactModal');
-  let child = document.getElementById('editContact');
-  if (parent && child) {
-    parent.classList.remove('modal-bg-animation');
-    child.classList.remove('modal-animation');
-  }
-}
-
 async function deleteContact(index) {
   contacts.splice(index, 1);
   await setItem('contacts', JSON.stringify(contacts));
   showUserFeedbackMessage('Contact successfully deleted');
   document.getElementById('currentContact').innerHTML = '';
   renderContacts();
-  closeEditContactModal(); // Schließt die Modalansicht
+  changeZindex();
 }
 function noClose(event) {
   event.stopPropagation();
