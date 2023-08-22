@@ -1,51 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="assets/img/logo-join.png">
-    <title>Join</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/fonts.css">
-
-    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/x-icon" href="assets/img/logo-big.svg"/>
+    <title>Join | Home</title>
+    <script src="js/storage.js"></script>
     <script src="js/login.js"></script>
-</head>
-
-<body onload="initLogin()">
-    <img class="logo" src="assets/img/logo-big.svg" alt="Join Logo">
-    <main>
-        <header>
-            <div id="signUp">
-                <p>Not a Join user?</p>
-                <button class="but-dark" onclick="renderHTML('content', SingupHTML);hideElementID('signUp')">Sign up</button>
+  </head>
+  <body onload="init();">
+    <div class="main-page">
+      <div class="loading-screen" style="border-bottom-right-radius: 100px;">
+        <img class="logo" src="assets/img/logo-big.svg" />
+      </div>
+      <div class="loading-screen-mobile">
+        <img class="logo" src="assets/img/logo_Light.png" />
+      </div>
+      <div class="signup-container">
+        <span>Not a Join user?</span>
+        <a href="/pages/signup.html">
+          <button class="sign-btn">Sign up</button>
+        </a>
+      </div>
+      <div class="login-container">
+        <h1>Log in</h1>
+        <form id="login-form" onsubmit="loginUser(); return false;">
+          <div class="line"></div>
+          <div class="input-container">
+            <input id="email" type="email" placeholder="Email" />
+            <input
+              id="password"
+              class=""
+              type="password"
+              placeholder="Password"
+            />
+            <span id="error" style="display: none"
+              >Ups! Wrong password. Try again.
+            </span>
+          </div>
+          <div class="options">
+            <div class="remember-container">
+              <input id="remember" type="checkbox" />
+              <label for="remember">Remember me</label>
             </div>
-        </header>
-        <div id="content">
-            <h1>Log in</h1>
-            <div id="underline"></div>
-            <form onsubmit="login(); return false">
-                <input type="email" id="email" name="Email" placeholder="Email" required>
-                <input type="password" id="pwd" name="Password" placeholder="Password" ondblclick="togglPwd('pwd')" onfocusout="hidePwd('pwd')" required>
-                <span id="msgPwd"></span>
-                <div class="pwd-ext">
-                    <input type="checkbox" name="Remember" id="saveLogin">
-                    <label for="saveLogin">Remember me</label>
-                    <a onclick="renderHTML('content',PwdHTML);hideElementID('signUp')">Forgot my password</a>
-                </div>
-                <div class="but-area">
-                    <button class="but-dark">Log in</button>
-                    <button class="but-light" onclick="loginGuest()">Guest Log in</button>
-                </div>
-            </form>
-        </div>
-    </main>
-    <div id="hidden">
+            <a href="pages/forgot.html" id="remember-link">I forgot my password</a>
+          </div>
+          <div class="login-buttons">
+            <button type="submit" id="login">Log in</button>
+            <button type="button" id="guest-login" onclick="guestUser();">
+              Guest Log in
+            </button>
+          </div>
+        </form>
+      </div>
+      <footer class="footer">
+        <a target="_blank" href="pages/privacyPolicy.html">Privacy Policy</a>
+        <a target="_blank" href="pages/legalNotice.html">Legal Notice</a>
+      </footer>
     </div>
-
-</body>
-
+  </body>
 </html>

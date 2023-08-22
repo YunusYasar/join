@@ -1,0 +1,365 @@
+body {
+    margin: 0;
+    background-color: #f6f7f8;
+    font-family: "Inter";
+  }
+  
+  .sign-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .loading-screen {
+    top: 30px;
+    left: 30px;
+    background-color: #f6f7f8;
+    opacity: 1;
+    visibility: visible;
+    z-index: 9999;
+    position: absolute;
+  }
+  
+  .logo {
+    width: 100%;
+    height: 100%;
+  }
+  
+  @keyframes resizeLogo {
+    0% {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    100% {
+      max-width: 150px;
+      max-height: 150px;
+    }
+  }
+  
+  #forgot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-container {
+    background-color: #ffffff;
+    padding: 48px 115px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  }
+  
+  .login-container h1 {
+    margin-top: -10px;
+    text-align: center;
+    font-size: 45px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  
+  .line {
+    width: 100px;
+    height: 2px;
+    background-color: #29abe2;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+  
+  #signup {
+    border-radius: 8px;
+    height: 45px;
+    width: 150px;
+    background: #2a3647;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-style: unset;
+  }
+  
+  #signup:hover {
+    cursor: pointer;
+    background: #29abe2;
+  }
+  
+  .signup-buttons {
+    display: flex;
+    gap: 40px;
+  }
+  
+  #email {
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border-color: #d1d1d1;
+    border: 1px solid #d1d1d1;
+    text-indent: 10px;
+    font-family: "Inter";
+    background-image: url("../assets/img/mail.png");
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+  }
+  
+  #email::placeholder {
+    color: #d1d1d1;
+    opacity: 0.9;
+    font-weight: 400;
+    text-indent: 10px;
+    font-size: 14px;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .arrow {
+    margin-bottom: 30px;
+  }
+  .arrow:hover {
+    cursor: pointer;
+    background-color: #f6f7f8;
+    border-radius: 25px;
+  }
+  
+  #confirmpassword {
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border-color: #d1d1d1;
+    border: 1px solid #d1d1d1;
+    text-indent: 10px;
+    font-family: "Inter";
+    background-image: url("../assets/img/lock.png");
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+  }
+  
+  #confirmpassword::placeholder {
+    color: #d1d1d1;
+    opacity: 0.9;
+    font-weight: 400;
+    text-indent: 10px;
+    font-size: 14px;
+  }
+  
+  #name {
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border-color: #d1d1d1;
+    border: 1px solid #d1d1d1;
+    text-indent: 10px;
+    font-family: "Inter";
+    margin-top: 20px;
+    background-image: url("../assets/img/person.svg");
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+  }
+  
+  #name::placeholder {
+    color: #d1d1d1;
+    opacity: 0.9;
+    font-weight: 400;
+    text-indent: 10px;
+    font-size: 14px;
+  }
+  
+  #password {
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border-color: #d1d1d1;
+    border: 1px solid #d1d1d1;
+    text-indent: 10px;
+    font-family: "Inter";
+    background-image: url("../assets/img/lock.png");
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+  }
+  
+  #password::placeholder {
+    color: #d1d1d1;
+    opacity: 0.9;
+    font-weight: 400;
+    text-indent: 10px;
+    font-size: 14px;
+  }
+  
+  #privacy {
+    width: 16px;
+    height: 16px;
+    color: #2a3647;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  .privacy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  #remember-link {
+    text-decoration: none;
+    color: #29abe2;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  .options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  
+  .label {
+    color: #a8a8a8;
+  }
+  
+  .label a {
+    text-decoration: none;
+    color: #29abe2;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: #a8a8a8;
+  }
+  
+  .border-red {
+    border-color: red !important;
+    outline: none;
+  }
+  
+  #error {
+    display: flex;
+    color: red;
+    margin-top: -20px;
+    margin-left: 10px;
+    align-self: flex-start;
+    font-size: 12px;
+  }
+  
+  /* Pop up test */
+  
+  body,
+  html {
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Light grey with some transparency */
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none; /* Allow clicks to pass through the overlay */
+    transition: opacity 0.5s ease;
+  }
+  
+  .fly-in-button {
+    position: absolute;
+    bottom: -100px; /* Start off the screen at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    z-index: 2;
+    cursor: pointer;
+    transition: bottom 1s ease;
+    border-radius: 8px;
+    height: 45px;
+    width: 250px;
+    background: #2a3647;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  body.clicked .overlay {
+    opacity: 1; /* Show the overlay when button animates in */
+  }
+  
+  body.clicked .fly-in-button {
+    bottom: 50px; /* Move to the center of the screen */
+  }
+  
+  @media (max-width: 600px) {
+    .loading-screen img {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .login-container {
+      padding: 34px 34px;
+      width: 70vw;
+    }
+  
+    #email {
+      width: 90%;
+    }
+  
+    #login {
+      width: 170px;
+    }
+  
+    .header {
+      align-items: flex-start;
+      text-align: center;
+    }
+  
+    .header h1 {
+      font-size: 34px !important;
+      align-self: center;
+      margin-left: unset;
+      margin-right: unset;
+    }
+  
+    .header a {
+      position: absolute;
+      top: 25vh;
+      left: 15vw;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .login-container {
+      margin-top: 60px;
+      padding: 24px 37px;
+    }
+  
+    .main-page {
+      align-items: flex-start;
+    }
+  }

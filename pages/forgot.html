@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/forgot.css">
+    <script src="../js/login.js"></script>
+    <script src="../js/storage.js"></script>
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo-big.svg"/>
+    <title>Join | I forgot my Password</title>
+</head>
+<body onload="loadUsers();">
+    <div class="forgot-page">
+        <div class="loading-screen">
+          <img class="logo" src="../assets/img/logo-join.png" />
+        </div>
+        <div class="login-container">
+          <div class="header">
+            <a href="../index.html">
+            <img class="arrow" src="../assets/img/arrow-left-line.png">
+          </a>
+            <h1>I forgot my Password</h1>
+          </div>
+          <form id="forgot-form" action="PLATZHALTER PHP" method="POST">
+            <div class="line"></div>
+            <div class="paragraph">
+              <span>Don't worry! We will send you an email with the instructions to reset your password.</span>
+            </div>
+            <br>
+            <div class="input-container">
+              <input name="name" id="email" type="email" placeholder="Email" required/>
+              <span id="error" style="display: none"
+              >Ups! This email doesn't exist. Try again.
+            </span>
+            </div>
+            
+            
+            <div class="login-buttons">
+              <button id="login">Send me the email</button>
+            </div>
+          </form>
+        </div>
+        <div class="overlay"></div>
+        <button class="fly-in-button">An E-Mail has been sent to you</button>
+        <script src="../js/forgot.js"></script>
+</body>
+</html>
