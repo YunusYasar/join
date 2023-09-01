@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo-big.svg"/>
+    <script src="../js/storage.js"></script>
+    
+    
+    <title>Join | Sign Up</title>
+</head>
+<body>
+    <div class="sign-page">
+        <div class="loading-screen">
+          <img class="logo" src="../assets/img/logo-join.png" />
+        </div>
+        <div class="login-container">
+          <div class="header">
+            <a href="../index.html">
+            <img class="arrow" src="../assets/img/arrow-left-line.png">
+        </a>
+            <h1>Sign up</h1>
+          </div>
+          <form id="forgot-form">
+            <div class="line"></div>
+            <div class="input-container">
+              <input id="name" type="text" placeholder="Name" required/>
+              <input id="email" type="email" placeholder="Email" required/>
+              <input id="password" type="password" placeholder="Password" required/>
+              <input id="confirmpassword" type="password" placeholder="Confirm password" required/>
+              <span id="error" style="display: none"
+              >Ups! Wrong password. Try again.
+            </span>
+            </div>
+            <div class="options">
+                <div class="privacy-container">
+                  <input id="privacy" type="checkbox" required/>
+                  <label class="label" for="privacy">I accept the <a target="_blank" href="privacyPolicy.html">Privacy Policy</a></label>
+                </div>
+              </div>
+            <div class="signup-buttons">
+              <button id="signup">Sign up</button>
+            </div>
+          </form>
+          
+        </div>
+        <div class="overlay"></div>
+        <button class="fly-in-button">You Signed Up successfully</button>
+        <footer class="footer">
+            <a href="privacyPolicy.html" target="_blank">Privacy Policy</a>
+            <a href="legalNotice.html" target="_blank">Legal Notice</a>
+          </footer>
+          <script src="../js/register.js"></script>
+</body>
+</html>
