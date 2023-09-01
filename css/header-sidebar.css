@@ -169,6 +169,7 @@
 @media (max-width: 850px) {
   /* Sidebar*/
   .sidebar {
+    display: block;
     top: auto;
     bottom: 0;
     left: 0;

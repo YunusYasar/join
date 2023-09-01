@@ -1,6 +1,6 @@
 <h1>Add Task</h1>
 <img onclick="addTaskModal()" class="cancel-btn" src="../assets/img/x-icon.svg" alt="" />
-<form onsubmit="addTask(); return false" onreset="" class="add-task-form add-form-overlay">
+<form onsubmit="addTask(); return false;" onreset="" class="add-task-form add-form-overlay">
   <div>
     <div class="input-box">
       <label for="title">Title</label>
@@ -69,7 +69,7 @@
           <div class="input-icon-box">
             <img onclick="clearInput('subtask-input')" class="subtask-img" src="../assets/img/cancel-icon.svg" alt="" />
             <div class="seperator-small"></div>
-            <img onclick="addSubtask()" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt="" />
+            <img onclick="addSubtask('subtask-box')" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt="" />
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@
     </div>
     <div class="form-right-bottom-box">
       <div class="button-box">
-        <button class="button-secondary-with-icon" type="reset">Clear <img src="../assets/img/cancel-icon.svg" alt="" /></button>
+        <button onclick="clearAll()" class="button-secondary-with-icon" type="reset">Clear <img src="../assets/img/cancel-icon.svg" alt="" /></button>
         <button id="submit-button" class="button-with-icon" type="submit">
           Create Task
           <img src="../assets/img/checkmark-icon.svg" alt="" />

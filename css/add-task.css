@@ -219,7 +219,45 @@ textarea::placeholder {
   align-items: center;
   gap: 10px;
 }
+#category,
+#assignedContactsList {
+  display: flex;
+  /* flex-direction: column; */
+  min-height: 51px;
+  padding: 13px 21px;
+  border-radius: 10px;
+  outline: unset;
+  border: 1px solid var(--fntcolor);
+  background-color: white;
+}
 
+#edit-category > div {
+  cursor: pointer;
+}
+
+#edit-category-input {
+  position: relative;
+  border: unset;
+}
+
+#edit-category div,
+#editAssignedContactsList > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+#edit-category,
+#editAssignedContactsList {
+  display: flex;
+  /* flex-direction: column; */
+  min-height: 51px;
+  padding: 13px 21px;
+  border-radius: 10px;
+  outline: unset;
+  border: 1px solid var(--fntcolor);
+  background-color: white;
+}
 #subtask-box {
   display: flex;
   flex-direction: column;
@@ -401,6 +439,25 @@ textarea::placeholder {
 #category .Marketing {
   background-color: #bb051d;
 }
+
+#edit-category .IT {
+  background-color: #008ddc;
+}
+#edit-category .Design {
+  background-color: #ff7827;
+}
+#edit-category .Sales {
+  background-color: #a900f8;
+}
+#edit-category .Backoffice {
+  background-color: #502787;
+}
+#edit-category .Media {
+  background-color: #00d345;
+}
+#edit-category .Marketing {
+  background-color: #bb051d;
+}
 .dropdown {
   display: none;
   min-height: 51px;
@@ -413,6 +470,12 @@ textarea::placeholder {
   position: relative;
 }
 #dropdownContentContacts {
+  display: none;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+#dropdownContentEditContacts {
   display: none;
   justify-content: flex-start;
   align-items: center;
