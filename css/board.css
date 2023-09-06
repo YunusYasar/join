@@ -140,7 +140,7 @@ input::placeholder {
   flex-direction: column;
   gap: 35px;
   min-height: calc(100% - 58px);
-  max-height: 65vh;
+  max-height: 65vh !important;
   overflow-y: auto;
 }
 
@@ -259,7 +259,11 @@ input::placeholder {
   width: 80%;
   overflow-x: auto;
 }
-
+.assigned-to-overview-box > div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .assigned-to-overview-box > span:not(:first-child) {
   margin-left: -10px;
 }
@@ -329,6 +333,8 @@ input::placeholder {
 #subtask-box-overlay {
   display: flex;
   flex-direction: column;
+  max-height: 120px !important;
+  overflow: scroll;
 }
 
 #subtask-box-overlay > label {
@@ -339,8 +345,8 @@ input::placeholder {
 
 .overlay-close-button {
   position: absolute;
-  top: 50px;
-  right: 50px;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
 }
 
@@ -380,6 +386,7 @@ input::placeholder {
 .overlay-headline {
   font-size: 61px;
   color: var(--main-color);
+  white-space: break-spaces;
 }
 
 .overlay-category {
@@ -454,17 +461,111 @@ input::placeholder {
   background-color: var(--acccolor);
   box-shadow: var(--shadow-btm);
 }
+.task-in-modal {
+  overflow-y: auto;
+  max-height: 90vh;
+  width: 500px !important;
+}
+.task-in-modal > div {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: var(--nuevo);
+  font-size: 21px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.todo-modal-open-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.todo-modal-open-card > span {
+  margin-right: 10px;
+}
+.open-task-underline {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.delete-edit-task {
+  cursor: pointer;
+}
+#edit-title {
+  height: 51px;
+  width: 100%;
+  padding: 13px 21px;
+  border-radius: 10px;
+  outline: unset;
+  border: 1px solid var(--fntcolor);
+  background-color: white;
+  font-size: 21px;
+}
+
+.edit-task-form {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: initial;
+  /* padding: 20px; */
+}
+.edit-submit-task-button {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+.edit-contacts-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+.subtasks-edit-content {
+  display: flex;
+}
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+#subtask-edit-box {
+  max-height: 120px;
+  overflow: scroll;
+}
+
+.arraw-task {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+.arrow-task:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+.arrow-div {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 
 @media (max-width: 1350px) {
+  .bord-header h1 {
+    font-size: 47px;
+    margin-bottom: 0px;
+  }
   main {
     padding-bottom: 30px;
   }
-
+  .arrow-div {
+    display: block;
+  }
   .bord-header {
     flex-direction: column;
     gap: 20px;
     width: 70%;
-    margin: 30px 0;
+    margin: 14px 0;
     position: relative;
   }
 
@@ -562,7 +663,7 @@ input::placeholder {
   }
 
   .bord-header {
-    margin-top: 70px;
+    margin-top: 50px;
   }
 
   .bord-header div {

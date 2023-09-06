@@ -239,6 +239,8 @@ textarea::placeholder {
 #subtask-box {
   display: flex;
   flex-direction: column;
+  height: 130px;
+  overflow: scroll;
 }
 
 #subtask-box > label {
@@ -289,6 +291,15 @@ textarea::placeholder {
   width: 24px;
   height: 24px;
   cursor: pointer;
+}
+
+.subtask-edit-img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  margin-top: 13px;
 }
 
 #color-picker-box {
@@ -344,8 +355,8 @@ textarea::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 80%;
+  /* width: 80%;
+  height: 80%; */
   position: absolute;
   top: 50%;
   left: 150%;
@@ -363,8 +374,10 @@ textarea::placeholder {
 }
 .add-task-modal {
   background-color: white;
-  padding: 65px;
+  padding: 40px;
   border-radius: 30px;
+  /* width: 500px; */
+  height: 800px;
 }
 .input-box {
   display: flex;
@@ -625,12 +638,12 @@ form > div {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     overflow: scroll;
   }
   #prio-box div {
-    width: 100px;
+    width: 130px;
   }
   .add-form-overlay {
     padding-bottom: 0px;
@@ -665,9 +678,14 @@ form > div {
     top: 30px;
 
   } */
-
+  .button-secondary-with-icon {
+    width: 100px;
+  }
   .right-frame {
     display: none;
+  }
+  .subtask-edit-img {
+    right: 25px;
   }
 
   @media (max-width: 500px) {

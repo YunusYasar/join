@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../../css/template.css" />
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <script src="../../js/template.js"></script>
+</head>
+
+</html>
+<div id="sidebar">
+  <div id="sidebar_logo">
+    <img src="../assets/img/join-logo-summary.png" alt="" />
+  </div>
+  <div id="sidebar_categories">
+
+    <a class="sidebar_link" href="summary.html">
+      <div id="sidebar_categories_summary" class="sidebar_category" onclick="showCategory('summary'), saveColumn('board_container_bottom_todo')">
+        <div class="sidebar_category_line">
+          <div id="sidebar_categories_summary_Icon" class="category_img">
+            <img src="../assets/img/summary-icon.png" alt="" />
+          </div>
+          <div id="sidebar_categories_summary_Text">Summary</div>
+        </div>
+      </div>
+    </a>
+  <a class="sidebar_link" href="board.html">
+    <div id="sidebar_categories_board" class="sidebar_category" onclick="showCategory('board')">
+      <div class="sidebar_category_line">
+        <div id="sidebar_categories_board_Icon" class="category_img">
+          <img src="../assets/img/board-icon.png" alt="" />
+        </div>
+        <div id="sidebar_categories_board_Text">Board</div>
+      </div>
+    </div>
+  </a>
+  <a class="sidebar_link" href="add_task.html" >
+    <div id="sidebar_categories_addTask" class="sidebar_category" onclick="showCategory('addTask')">
+      <div class="sidebar_category_line">
+        <div id="sidebar_categories_addTask_Icon" class="category_img">
+          <img src="../assets/img/add-task-icon.png" alt="" />
+        </div>
+        <div id="sidebar_categories_addTask_Text">Add Task</div>
+      </div>
+    </div>
+  </a>
+  <a class="sidebar_link" href="contacts.html">
+    <div id="sidebar_categories_contacts" class="sidebar_category" onclick="showCategory('contacts')">
+      <div class="sidebar_category_line">
+        <div id="sidebar_categories_contacts_Icon" class="category_img">
+          <img src="../assets/img/contact-icon.png" alt="" />
+        </div>
+        <div id="sidebar_categories_contacts_Text">Contacts</div>
+      </div>
+    </div>
+  </a>
+  </div>
+  <div id="sidebar_policies">
+    <a id="privacy_police"  href="../../pages/privacyPolicy.html" target="_blank">Privacy Policy</a>
+    <a id="legal_notice" href="../../pages/legalNotice.html" target="_blank">Legal notice</a>
+  </div>
+</div>
+
+<div id="topbar">
+  <div id="topbar_text">Kanban Project Managment Tool</div>
+  <div id="topbar_icons">
+    <div id="topbar_Icons_help">
+      <a href="help.html"><img src="../assets/img/help-icon.png" title="help" /></a>
+    </div>
+    <!-- platzhalter für circle -->
+  </div>
+</div>
+
+<div id="popupBar" class="d-none d-flex">
+  <a href="../../pages/legalNotice.html" target="_blank">Impressum</a>
+  <a href="../../index.html" onclick="logoutUser();">Log out</a>
+</div>

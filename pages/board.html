@@ -7,26 +7,31 @@
     <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/fonts.css" />
-    <link rel="stylesheet" href="../css/header-sidebar.css" />
+    <link rel="stylesheet" href="../css/responsiv.css" />
     <link rel="stylesheet" href="../css/board.css" />
     <link rel="stylesheet" href="../css/add-task2.css" />
     <!-- <link rel="stylesheet" href="../css/contact.css" /> -->
 
-    <script src="../js/script.js"></script>
+    
     <script src="../js/storage.js"></script>
     <script src="../js/contact.js"></script>
     <script src="../js/add_task.js"></script>
+    <script src="../js/template.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/board.js"></script>
+    <script src="../js/html_templates.js"></script>
+   
   </head>
-  <body onload="init()">
-    <header class="header" w3-include-html="../assets/templates/header.html"></header>
-    <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
+  <body onload="initTemplate('board')">
+    <div w3-include-html="../assets/templates/desktop_template.html"></div>
+    <div w3-include-html="../assets/templates/mobile_template.html"></div>
 
     <main id="boardMain">
       <div class="bord-header">
         <h1>Board</h1>
         <div>
           <div class="input-wrapper">
-            <input oninput="" placeholder="Find Task" type="text" name="" id="search-task-input" />
+            <input oninput="searchTask()" placeholder="Find Task" type="text" name="" id="search-task-input" />
             <div>
               <img src="../assets/img/search-icon.svg" alt="search" />
             </div>
@@ -45,7 +50,7 @@
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
-          <div id="to-do-area" ondrop="" ondragleave="" ondragover="" class="drag-area"></div>
+          <div id="toDo-area" ondrop="moveTo('toDo')" ondragleave="" ondragover="allowDrop(event)" class="drag-area"></div>
         </div>
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
@@ -54,7 +59,7 @@
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
-          <div id="in-progress-area" ondrop="" ondragleave="" ondragover="" class="drag-area"></div>
+          <div id="inProgress-area" ondrop="moveTo('inProgress')" ondragleave="" ondragover="allowDrop(event)" class="drag-area"></div>
         </div>
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
@@ -63,7 +68,7 @@
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
-          <div id="awaiting-feedback-area" ondragleave="" ondrop="moveTo('awaiting-feedback')" ondragover="" class="drag-area"></div>
+          <div id="awaitingFeedback-area" ondrop="moveTo('awaitingFeedback')" ondragleave="" ondragover="allowDrop(event)" class="drag-area"></div>
         </div>
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
@@ -72,7 +77,7 @@
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
-          <div id="done-area" ondragleave="" ondrop="moveTo('done')" ondragover="" class="drag-area"></div>
+          <div id="done-area" ondrop="moveTo('done')" ondragleave="" ondragover="allowDrop(event)" class="drag-area"></div>
         </div>
       </section>
       <section onclick="addTaskModal()" id="addTaskModal" class="modal-container">
@@ -80,9 +85,14 @@
           <div w3-include-html="../assets/templates/addtaskform.html"></div>
         </div>
       </section>
+
+      <div id="contact-created-message" class="contact-created-message d-none">Contact succesfully created</div>
+
+      <section onclick="openTask(document.getElementById('editingShowTaskIndex').value)" id="openTaskModal" class="modal-container">
+        <div onclick="noClose(event)" id="openTaskInModal" class="modal-inner-container add-task-modal task-in-modal"></div>
+      </section>
+
+      <section onclick="editTaskModal(document.getElementById('editingTaskIndex').value)" id="editTaskModal" class="modal-container"></section>
     </main>
-    <div onclick="" class="d-none" id="task-overlay">
-      <div onclick="" id="task-overlay-content"></div>
-    </div>
   </body>
 </html>

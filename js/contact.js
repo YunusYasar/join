@@ -13,7 +13,7 @@ const colors = {
 
 async function initContacts() {
   await includeHTML();
-  loadContacts();
+  await loadContacts();
 }
 
 async function loadContacts() {
@@ -97,11 +97,13 @@ function renderContactCard(index) {
   document.getElementById('contactsOverview').style['z-index'] = 99;
   document.getElementById('contactsList').style['z-index'] = 0;
 }
+
 function changeZindex() {
   document.getElementById('contactsOverview').style['z-index'] = 0;
   document.getElementById('contactsList').style['z-index'] = 99;
   document.getElementById('newContact').style['z-index'] = 999;
 }
+
 async function addContact(event) {
   event.preventDefault();
 
@@ -133,6 +135,7 @@ async function updateContact(index) {
   renderContacts();
   renderContactCard(index);
 }
+
 function addContactModal() {
   addContactForm.reset();
   let parent = document.getElementById('addContactModal');
@@ -195,83 +198,6 @@ function popOutUserFeedbackMessage() {
 }
 
 function capitalizeFirstLetter(string) {
+  if (!string) return '';
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function editContactModalHTML(contact, i) {
-  return `
-  <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
-   <div class="left-frame-add">
-     <img src="../assets/img/logo_Light.png" alt="Join logo">
-     <div class="contact-info">
-       <h1>Edit contact</h1>
-     </div>
-   </div>
-   <div class="right-frame-add">
-      <div class="img-wrapper" style="background-color: ${contact.color}">
-        ${contact.initials} 
-      </div>
-     <form class="user-form" id="editContactForm" onsubmit="updateContact(${i}); return false;">
-       <input type="hidden" id="editingIndex">
-       <div class="input-wrapper">
-         <input id="editContactName" required type="text" placeholder="Name">
-         <img src="../assets/img/user-icon.svg" alt="">
-       </div>
-       <div class="input-wrapper">
-         <input id="editContactEmail" required type="email" placeholder="Email">
-         <img src="../assets/img/login-email.svg" alt="">
-       </div>
-       <div class="input-wrapper">
-         <input id="editContactPhone" required type="number" placeholder="Phone">
-         <img src="../assets/img/telephone.svg" alt="">
-       </div>
-       <div class="button-wrapper">
-         <button onclick="deleteContact(${i})" type="reset" class="button-secondary-with-icon">
-          <span>Delete</span>
-           <img src="../assets/img/cancel-icon.svg" alt="">
-         </button>
-         <button class="button-with-icon">
-           <span>Save</span>
-           <img src="../assets/img/checkmark-icon.svg" alt="">
-         </button>
-       </div>
-     </form>
-  </div>
-  </div>
-  `;
-}
-
-function currentContactHTML(contact, i) {
-  return `
-<div>
-<div class="contact-head">
-  <div class="img-wrapper" style="background-color: ${contact.color}">
-      ${contact.initials} 
-  </div>
-  <h3>${contact.name}</h3>
-</div>
-  <div>
-  <div class="contact-underline">
-      <span>Contact Information</span>
-      <div class="currentAction">
-      <span class="edit-contact" onclick="deleteContact(${i})">
-          <img class="pencil-img" src="../assets/img/delete.svg" alt="">
-          Delete
-      </span>
-      <span class="edit-contact" onclick="editContactModal(${i})">
-          <img class="pencil-img" src="../assets/img/edit.svg" alt="">
-          Edit Contact
-      </span>
-      </div>
-  </div>
-  </div>
-  <div class="contact-parts">
-      <div class="bold">Email</div>
-      <a href="mailto:${contact.email}">${contact.email}</a>
-  </div>
-  <div class="contact-parts">
-      <div class="bold">Phone</div>
-      <a href="tel:${contact.phone}">${contact.phone}</a>
-  </div>
-</div>`;
 }

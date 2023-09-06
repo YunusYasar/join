@@ -1,0 +1,61 @@
+body {
+    background-color: rgb(245, 245, 245);
+    font-family: "inter";
+    display: flex;
+    margin: 0;
+  }
+  
+  .supportPage {
+    margin-top: 207px;
+    margin-left: 328px;
+    margin-right: 96px;
+    margin-bottom: 64px;
+  }
+  
+  .supportHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  }
+  
+  .title {
+    font-size: 61px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 73.2px */
+    margin-bottom: 32px;
+  }
+  
+  
+  .aroundArrow:hover {
+    border: solid 4px #29ABE2;
+    cursor: pointer;
+  }
+  
+  h4 {
+    color: var(--black, #000);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 24px */
+  }
+  
+  p {
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--black, #000);
+  }
+  
+  .join {
+    color: #29ABE2;
+    font-weight: 500;
+  }
+  
+  .developerAkademie {
+    color: #FD5B4F;
+    font-weight: 500;
+  }

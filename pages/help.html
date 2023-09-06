@@ -1,132 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join - Help</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
-    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/template.css" />
+    <link rel="stylesheet" href="../css/support.css" />
     <link rel="stylesheet" href="../css/fonts.css" />
-    <link rel="stylesheet" href="../css/header-sidebar.css" />
-    <link rel="stylesheet" href="../css/help.css">
+    <link rel="stylesheet" href="../css/responsiveness.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png"/>
+    <script src="../js/Template.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/support.js"></script>
 
-    <script src="../js/script.js"></script>
-    <script src="../js/add_task.js"></script>
-</head>
-
-<body onload="init()">
-    <header class="header" w3-include-html="../assets/templates/header.html"></header>
-    <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
-
-    <div id="contentHelp">
-        <div id="wrapperHL">
-            <h1>Help</h1>
-            <button id="btnreturn">
-                <a href="../pages/summary.html"><img src="../assets/img/arrow-left-line.png"></a>
-            </button>
-        </div>
-        <div id="wrapperTxt">
-            <div class="chapter">
-                <h2>What is Join?</h2>
-                <p>The "Join" homepage embraces the powerful Kanban method to optimize task organization and encourage
-                    effective team collaboration. Through its intuitive "Summary," "Board," "AddTask," and "Contacts"
-                    tabs, "Join" offers a user-friendly platform for managing workflows and driving project
-                    success.<br><br>
-                    The "Summary" tab provides a quick snapshot, displaying task distribution across the Kanban board's
-                    columns – "ToDo," "In Progress," "Awaiting Feedback," and "Done." This concise overview enables
-                    users to promptly assess the project's current status, aiding in better decision-making and resource
-                    allocation.<br>
-                    In the heart of the "Join" homepage lies the dynamic "Board" tab, boasting an interactive Kanban
-                    board. Users can effortlessly create tasks, assign priorities, and seamlessly move tasks between
-                    columns using Drag &amp; Drop functionality. Real-time updates and visual cues keep teams informed,
-                    enabling quick responses to evolving project requirements.<br>
-                    The "AddTask" tab simplifies task incorporation into the workflow. In just a few clicks, users can
-                    input task details, set due dates, and assign responsible team members, ensuring comprehensive and
-                    accurate task management.<br>
-                    Moreover, the "Contacts" tab serves as a centralized repository of key team members and
-                    stakeholders. Displaying their names, email addresses, and phone numbers, this feature fosters
-                    seamless communication and collaboration, ensuring everyone stays connected throughout the project's
-                    lifecycle.<br><br>
-                    Designed with user-friendliness in mind, "Join" boasts an intuitive interface and logical layout,
-                    catering to users of all skill levels. This ensures quick adaptation to the platform, enhancing
-                    overall productivity in managing tasks and projects.</p>
-            </div>
-            <div class="chapter">
-                <h2>How to use it</h2>
-                <ol>
-                    <li class="numberListelement">
-                        <h3>Registration or Login</h3>
-                        <ul>
-                            <li>If you are a new user, click on the "Register" button to create an account. Provide your
-                                email address, choose a username, and set a secure password. Confirm your registration
-                                by clicking the confirmation link sent to your email.</li>
-                            <li>If you already have an account, click on the "Login" button. Enter your email address
-                                and password, then click "Login" to access the "Join" homepage.</li>
-                        </ul>
-                    </li>
-                    <li class="numberListelement">
-                        <h3>Exploring the Homepage</h3>
-                        <ul>
-                            <li><i> Summary Tab:</i> Start on the "Summary" tab, which provides a quick overview of the
-                                tasks in each column (ToDo, In Progress, Awaiting Feedback, Done) of the Kanban board.
-                                This summary helps you grasp the project's current status at a glance.</li>
-                            <li><i>Board Tab:</i> Move to the "Board" tab, where you'll find the interactive Kanban
-                                board. Here, you can manage tasks effectively. To add a new task, click on the "Add
-                                Task" button in the respective column. Use Drag &amp; Drop to move tasks between columns
-                                and update their status.</li>
-                            <li><i>AddTask Tab:</i> If you need to add a new task, navigate to the "AddTask" tab. Enter
-                                a clear task description, select the appropriate column (ToDo, In Progress, Awaiting
-                                Feedback), and set a due date if needed. Assign the task to a team member if applicable.
-                                Click "Save" to add the task to the Kanban board.</li>
-                            <li><i>Contacts Tab:</i> In the "Contacts" tab, you'll find a list of essential team members
-                                and stakeholders. Access their names, email addresses, and phone numbers, facilitating
-                                seamless communication and collaboration.</li>
-                        </ul>
-                    </li>
-                    <li class="numberListelement">
-                        <h3>Working with the Kanban Board</h3>
-                        <ul>
-                            <li><i>Task Management:</i> In the "Board" tab, click on a task card to view its details.
-                                Edit task titles, descriptions, due dates, or assigned team members as necessary. Drag
-                                &amp; Drop tasks between columns to update their progress.</li>
-                            <li><i>Task Filtering:</i> Use the "Board" tab's filtering options to focus on specific
-                                tasks. Filter tasks based on status, due date, or assigned team member to streamline
-                                your view and prioritize effectively.</li>
-                        </ul>
-                    </li>
-                    <li class="numberListelement">
-                        <h3>Collaboration and Communication</h3>
-                        <ul>
-                            <li><i>Share the Board:</i> Collaborate with your team members by sharing the "Join"
-                                homepage. Provide access to relevant team members, enabling them to contribute and stay
-                                updated on project progress.</li>
-                            <li><i>Contacts Management:</i> In the "Contacts" tab, you can Add Contact to include new
-                                team members or stakeholders. Provide their names, email addresses, and phone numbers to
-                                keep essential contacts in one place.</li>
-                            <li><i>Edit Contact:</i> Update contact details as needed. Click on the contact card, make
-                                the necessary changes, and save the updated information to ensure accurate and
-                                up-to-date contact information.</li>
-                        </ul>
-                    </li>
-                    <li class="numberListelement">
-                        <h3>Stay Organized and Productive</h3>
-                        <ul>
-                            <li><i>Regularly Update the Board:</i> Keep the Kanban board up-to-date to ensure accurate
-                                project tracking. Move tasks as they progress, add new tasks when needed, and update
-                                task details as necessary.</li>
-                            <li><i>Monitor Progress:</i> Regularly check the "Summary" tab to review the project's
-                                overall status and identify areas that may require attention or further action.</li>
-                        </ul>
-                    </li>
-                </ol>
-            </div>
-        </div>
+    <title>JOIN | Help</title>
+  </head>
+  <body onload="initTemplate('legal_notice')">
+    <div w3-include-html="../assets/templates/desktop_template.html"></div>
+    <div w3-include-html="../assets/templates/mobile_template.html"></div>
+    <div class="supportPage">
+      <div class="supportHeader">
+        <div class="title">Help</div>
+        <a href="summary.html" class="aroundArrow"><img src="../assets/img/arrow-left-line.png"></a>
+      </div>
+      <p>
+        Welcome to the help page for <span class="join">Join</span>, your guide to using our kanban
+        project management tool. Here, we'll provide an overview of what <span class="join">Join</span>
+        is, how it can benefit you, and how to use it.
+      </p>
+      <div>
+        <h3>What is Join?</h3>
+        <p>
+          <span class="join">Join</span> is a kanban-based project management tool designed and built by a
+          group of dedicated students as part of their web development bootcamp
+          at the <span class="developerAkademie">Developer Akademie</span>.
+          <br /><br />
+          Kanban, a Japanese term meaning "billboard", is a highly effective
+          method to visualize work, limit work-in-progress, and maximize
+          efficiency (or flow). <span class="join">Join</span> leverages the principles of kanban to help
+          users manage their tasks and projects in an intuitive, visual
+          interface.
+          <br /><br />
+          It is important to note that <span class="join">Join</span> is designed as an educational
+          exercise and is not intended for extensive business usage. While we
+          strive to ensure the best possible user experience, we cannot
+          guarantee consistent availability, reliability, accuracy, or other
+          aspects of quality regarding <span class="join">Join</span>.
+        </p>
+      </div>
+      <div>
+        <h3>How to use it</h3>
+        <p>
+          Here is a step-by-step guide on how to use <span class="join">Join</span>:
+        </p>
+      </div>
+      <div>
+        <h4>Exploring the Board</h4>
+        <p>
+          When you log in to <span class="join">Join</span>, you'll find a default board. This board
+          represents your project and contains four default lists: "To Do", "In
+          Progress", “Await feedback” and "Done".
+        </p>
+      </div>
+      <div>
+        <h4>Creating Contacts</h4>
+        <p>
+          In <span class="join">Join</span>, you can add contacts to collaborate on your projects. Go to
+          the "Contacts" section, click on "New contact", and fill in the
+          required information. Once added, these contacts can be assigned tasks
+          and they can interact with the tasks on the board.
+        </p>
+      </div>
+      <div>
+        <h4>Adding Cards</h4>
+        <p>
+          Now that you've added your contacts, you can start adding cards. Cards
+          represent individual tasks. Click the "+" button under the appropriate
+          list to create a new card. Fill in the task details in the card, like
+          task name, description, due date, assignees, etc.
+        </p>
+      </div>
+      <div>
+        <h4>Moving Cards</h4>
+        <p>
+          As the task moves from one stage to another, you can reflect that on
+          the board by dragging and dropping the card from one list to another.
+        </p>
+      </div>
     </div>
-    </div>
-
-
-
-</body>
-
+  </body>
 </html>
