@@ -1,95 +1,5 @@
 function editContactModalHTML(contact, i) {
-<<<<<<< HEAD
-  return /*html*/ `
-    <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
-     <div class="left-frame-add">
-       <img src="../assets/img/logo_Light.png" alt="Join logo">
-       <div class="contact-info">
-         <h1>Edit contact</h1>
-       </div>
-     </div>
-     <div class="right-frame-add">
-        <div class="img-wrapper" style="background-color: ${contact.color}">
-          ${contact.initials} 
-        </div>
-       <form class="user-form" id="editContactForm" onsubmit="updateContact(${i}); return false;">
-         <input type="hidden" id="editingIndex">
-         <div class="input-wrapper">
-           <input id="editContactName" required type="text" placeholder="Name">
-           <img src="../assets/img/user-icon.svg" alt="">
-         </div>
-         <div class="input-wrapper">
-           <input id="editContactEmail" required type="email" placeholder="Email">
-           <img src="../assets/img/login-email.svg" alt="">
-         </div>
-         <div class="input-wrapper">
-           <input id="editContactPhone" required type="number" placeholder="Phone">
-           <img src="../assets/img/telephone.svg" alt="">
-         </div>
-         <div class="button-wrapper">
-           <button onclick="deleteContact(${i})" type="reset" class="button-secondary-with-icon">
-            <span>Delete</span>
-             <img src="../assets/img/cancel-icon.svg" alt="">
-           </button>
-           <button class="button-with-icon">
-             <span>Save</span>
-             <img src="../assets/img/checkmark-icon.svg" alt="">
-           </button>
-         </div>
-       </form>
-    </div>
-    </div>
-    `;
-}
-
-function currentContactHTML(contact, i) {
-  return /*html*/ `
-  <div>
-  <div class="contact-head">
-    <div class="img-wrapper" style="background-color: ${contact.color}">
-        ${contact.initials} 
-    </div>
-    <h3>${contact.name}</h3>
-  </div>
-    <div>
-    <div class="contact-underline">
-        <span>Contact Information</span>
-        <div class="currentAction">
-        <span class="edit-contact" onclick="deleteContact(${i})">
-            <img class="pencil-img" src="../assets/img/delete.svg" alt="">
-            Delete
-        </span>
-        <span class="edit-contact" onclick="editContactModal(${i})">
-            <img class="pencil-img" src="../assets/img/edit.svg" alt="">
-            Edit Contact
-        </span>
-        </div>
-    </div>
-    </div>
-    <div class="contact-parts">
-        <div class="bold">Email</div>
-        <a href="mailto:${contact.email}">${contact.email}</a>
-    </div>
-    <div class="contact-parts">
-        <div class="bold">Phone</div>
-        <a href="tel:${contact.phone}">${contact.phone}</a>
-    </div>
-  </div>`;
-}
-
-function appendAssignedContactHTML(contact, initials, index, isChecked) {
-  return /*html*/ `
-      <div class="contact-card-assigned">
-              <div class="contact-avatar-assigned" style="background-color: ${contact.color}">
-                  <span>${initials}</span>
-              </div>
-              <div class="assigned-contact-choice">
-                  <label class="contact-name">${contact.name}
-                  <input type="checkbox" class="assigned-checkbox" value="${index}" ${isChecked}>
-                  </label>
-              </div>
-=======
-    return `
+  return `
       <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
        <div class="left-frame-add">
          <img src="../assets/img/logo_Light.png" alt="Join logo">
@@ -100,7 +10,6 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
        <div class="right-frame-add">
           <div class="img-wrapper" style="background-color: ${contact.color}">
             ${contact.initials} 
->>>>>>> b47f0f0408b9d8778942cc1f3c735ad0e8cfd079
           </div>
          <form class="user-form" id="editContactForm" onsubmit="updateContact(${i}); return false;">
            <input type="hidden" id="editingIndex">
@@ -130,21 +39,10 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
       </div>
       </div>
       `;
-  }
-<<<<<<< HEAD
-  return /*html*/ `
-    <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">
-    <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
-      <div class="arrow-div">
-       <img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'previous')" 
-           style="transform: rotate(90deg);" 
-           class="arraw-task ${task.status === 'toDo' ? 'd-none' : ''}" 
-           src="../assets/img/arrow-left.svg" alt="">
-=======
->>>>>>> b47f0f0408b9d8778942cc1f3c735ad0e8cfd079
-  
-  function currentContactHTML(contact, i) {
-    return `
+}
+
+function currentContactHTML(contact, i) {
+  return `
     <div>
     <div class="contact-head">
       <div class="img-wrapper" style="background-color: ${contact.color}">
@@ -176,10 +74,10 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
           <a href="tel:${contact.phone}">${contact.phone}</a>
       </div>
     </div>`;
-  }
-  
-  function appendAssignedContactHTML(contact, initials, index, isChecked) {
-    return `
+}
+
+function appendAssignedContactHTML(contact, initials, index, isChecked) {
+  return `
         <div class="contact-card-assigned">
                 <div class="contact-avatar-assigned" style="background-color: ${contact.color}">
                     <span>${initials}</span>
@@ -191,16 +89,16 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
                 </div>
             </div>
         `;
+}
+
+function generateToDoHTML(task, index) {
+  let contactHTML = '';
+  if (task.contacts) {
+    task.contacts.forEach(contact => {
+      contactHTML += `<span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}</span>`;
+    });
   }
-  
-  function generateToDoHTML(task, index) {
-    let contactHTML = '';
-    if (task.contacts) {
-      task.contacts.forEach(contact => {
-        contactHTML += `<span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}</span>`;
-      });
-    }
-    return /*html*/ `
+  return /*html*/ `
       <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">    <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
         <div class="arrow-div">
          <img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'previous')" 
@@ -229,17 +127,17 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
       </div>
     </div>
         `;
-  }
-  
-  function generateToDoModalHTML(task, index) {
-    let contactHTML = '';
-    if (task.contacts) {
-      task.contacts.forEach(contact => {
-        contactHTML += `<div class="todo-modal-open-card"><span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}</span>
+}
+
+function generateToDoModalHTML(task, index) {
+  let contactHTML = '';
+  if (task.contacts) {
+    task.contacts.forEach(contact => {
+      contactHTML += `<div class="todo-modal-open-card"><span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}</span>
             <span>${contact.name}</span></div>`;
-      });
-    }
-    return /*html*/ `
+    });
+  }
+  return /*html*/ `
           <div>
           <input type="hidden" id="editingShowTaskIndex">
             <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
@@ -285,14 +183,14 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
             </div>
           </div>
         `;
-  }
-  
-  function editTaskModalHTML(task, index) {
-    const urgentHighlight = task.priority === 'urgent' ? '' : 'd-none';
-    const mediumHighlight = task.priority === 'medium' ? '' : 'd-none';
-    const lowHighlight = task.priority === 'low' ? '' : 'd-none';
-  
-    return /*html*/ `
+}
+
+function editTaskModalHTML(task, index) {
+  const urgentHighlight = task.priority === 'urgent' ? '' : 'd-none';
+  const mediumHighlight = task.priority === 'medium' ? '' : 'd-none';
+  const lowHighlight = task.priority === 'low' ? '' : 'd-none';
+
+  return /*html*/ `
           <div onclick="noClose(event)" id="editTaskInModal" class="modal-inner-container add-task-modal task-in-modal">
           
           <form onsubmit=" return false;" class="add-task-form add-form-overlay edit-task-form">
@@ -361,4 +259,4 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
           </form>
           </div>
         `;
-  }
+}
