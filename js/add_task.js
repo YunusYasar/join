@@ -12,12 +12,11 @@ let currentPriority = null;
 let selectedPrio = null;
 let currentSubtasks = [];
 
-async function initTask() {
+async function initTaskBoard() {
   await includeHTML();
   getCategory();
   await loadTasks();
   await loadContacts();
-  renderToDoCard();
 }
 
 async function loadTasks() {
@@ -207,9 +206,7 @@ async function addTask() {
   renderToDoCard('subtask-box');
   showUserFeedbackMessage('Task successfully created');
   addTaskModal();
-  setTimeout(() => {
-    window.location.replace('/board.html');
-  }, 1000);
+  window.location.href = '../pages/board.html';
 }
 
 function setMinDate() {

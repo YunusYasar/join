@@ -8,7 +8,13 @@ function startDragging(index) {
 function allowDrop(ev) {
   ev.preventDefault();
 }
-
+async function initBoard() {
+  await includeHTML();
+  getCategory();
+  await loadTasks();
+  await loadContacts();
+  renderToDoCard();
+}
 async function moveTo(status) {
   tasks[currentDraggedElement]['status'] = status;
   renderToDoCard();
