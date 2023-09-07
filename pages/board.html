@@ -3,25 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join - Board</title>
+    <title>Join - Summary</title>
     <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/fonts.css" />
-    <link rel="stylesheet" href="../css/header-sidebar.css" />
+    <link rel="stylesheet" href="../css/responsiv.css" />
     <link rel="stylesheet" href="../css/board.css" />
     <link rel="stylesheet" href="../css/add-task2.css" />
     <!-- <link rel="stylesheet" href="../css/contact.css" /> -->
 
-    <script src="../js/script.js" defer></script>
+    
     <script src="../js/storage.js" defer></script>
     <script src="../js/contact.js" defer></script>
     <script src="../js/add_task.js" defer></script>
+    <script src="../js/template.js" defer></script>
+    <script src="../js/login.js" defer></script>
     <script src="../js/board.js" defer></script>
     <script src="../js/html_templates.js" defer></script>
+   
   </head>
+<<<<<<< HEAD
   <body onload="initTask()">
     <header class="header" w3-include-html="../assets/templates/header.html"></header>
     <nav class="sidebar" w3-include-html="../assets/templates/sidebar.html"></nav>
+=======
+  <body onload="initTemplate('board')">
+    <div w3-include-html="../assets/templates/desktop_template.html"></div>
+    <div w3-include-html="../assets/templates/mobile_template.html"></div>
+>>>>>>> b47f0f0408b9d8778942cc1f3c735ad0e8cfd079
 
     <main id="boardMain">
       <div class="bord-header">

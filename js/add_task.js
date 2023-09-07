@@ -186,7 +186,6 @@ async function addTask() {
   const selectedCategory = document.getElementById('selectedCategory').textContent.trim();
   const selectedContacts = getSelectedContacts();
   const dueDate = document.getElementById('due-date').value;
-  //zorunlu alan olark priority
   const task = {
     title,
     description,

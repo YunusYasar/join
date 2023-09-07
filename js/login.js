@@ -34,8 +34,15 @@ function guestUser() {
   localStorage.setItem(`currentUser`, `Guest`);
   window.location.href = 'pages/summary.html';
   localStorage.setItem(`loggedIn`, true);
+<<<<<<< HEAD
 }
 
+=======
+
+}
+
+
+>>>>>>> b47f0f0408b9d8778942cc1f3c735ad0e8cfd079
 function checkLogIn() {
   let LogInStatus = localStorage.getItem(`loggedIn`);
   if (LogInStatus == 'false') {
@@ -49,6 +56,10 @@ function cacheData() {
   if (check.checked == true) {
     localStorage.setItem('email', `${email.value}`);
     localStorage.setItem(`password`, `${password.value}`);
+<<<<<<< HEAD
+=======
+
+>>>>>>> b47f0f0408b9d8778942cc1f3c735ad0e8cfd079
   }
 }
 
