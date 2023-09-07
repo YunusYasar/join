@@ -1,5 +1,5 @@
 function editContactModalHTML(contact, i) {
-  return `
+  return /*html*/ `
     <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
      <div class="left-frame-add">
        <img src="../assets/img/logo_Light.png" alt="Join logo">
@@ -42,7 +42,7 @@ function editContactModalHTML(contact, i) {
 }
 
 function currentContactHTML(contact, i) {
-  return `
+  return /*html*/ `
   <div>
   <div class="contact-head">
     <div class="img-wrapper" style="background-color: ${contact.color}">
@@ -77,7 +77,7 @@ function currentContactHTML(contact, i) {
 }
 
 function appendAssignedContactHTML(contact, initials, index, isChecked) {
-  return `
+  return /*html*/ `
       <div class="contact-card-assigned">
               <div class="contact-avatar-assigned" style="background-color: ${contact.color}">
                   <span>${initials}</span>
@@ -99,7 +99,8 @@ function generateToDoHTML(task, index) {
     });
   }
   return /*html*/ `
-    <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">    <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
+    <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">
+    <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
       <div class="arrow-div">
        <img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'previous')" 
            style="transform: rotate(90deg);" 
