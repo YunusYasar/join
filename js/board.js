@@ -172,7 +172,7 @@ function renderSubtasksInOverlay(taskIndex, container) {
   const subtasks = task.subtasks;
 
   if (subtasks.length > 0) {
-    subtaskBoxWrapper.classList.remove('d-none'); // Stellen Sie sicher, dass subtaskBoxWrapper definiert ist
+    subtaskBoxWrapper.classList.remove('d-none');
     subtasks.forEach((subtask, index) => {
       if (subtask.status == 'open') {
         container.innerHTML += getSubtaskOpenHTML(taskIndex, subtask, 'updateSubtaskInOverlay', index);
