@@ -12,7 +12,7 @@ let currentPriority = null;
 let selectedPrio = null;
 let currentSubtasks = [];
 
-async function initTaskBoard() {
+async function initTask() {
   await includeHTML();
   getCategory();
   await loadTasks();
@@ -199,6 +199,9 @@ async function addTask() {
   try {
     await setItem('tasks', JSON.stringify(tasks));
     console.log('Task erfolgreich gespeichert!');
+    setTimeout(() => {
+      window.location.href = 'board.html';
+    }, 1000);
   } catch (error) {
     console.error('Fehler beim Speichern des Tasks:', error);
   }
@@ -206,7 +209,6 @@ async function addTask() {
   renderToDoCard('subtask-box');
   showUserFeedbackMessage('Task successfully created');
   addTaskModal();
-  window.location.href = '../pages/board.html';
 }
 
 function setMinDate() {
@@ -220,10 +222,10 @@ function clearInput(id) {
 }
 
 function renderSubtasks(targetDivId, task = null) {
-  console.log('renderSubtasks() wurde aufgerufen, targetDivId:', targetDivId);
+  // console.log('renderSubtasks() wurde aufgerufen, targetDivId:', targetDivId);
 
   const container = document.getElementById(targetDivId);
-  console.log('Container:', container);
+  // console.log('Container:', container);
 
   if (!container) {
     console.error(`Element mit ID ${targetDivId} nicht gefunden.`);
@@ -249,15 +251,12 @@ function getSubtaskHTML(subtask, i, task = null, targetDivId) {
 }
 
 function addSubtask(targetDivId) {
-  console.log('addSubtask() wurde aufgerufen');
-
   const input = targetDivId == 'subtask-edit-box' ? document.getElementById('subtask-input-edit') : document.getElementById('subtask-input');
   if (input.value.length > 0) {
     const subtask = {
       name: input.value,
       status: 'open',
     };
-    console.log(`Füge Subtask hinzu: ${input.value}`);
     currentSubtasks.push(subtask);
     renderSubtasks(targetDivId);
     clearInput(input.id);
