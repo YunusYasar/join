@@ -40,7 +40,7 @@ function checkLogIn() {
   let LogInStatus = localStorage.getItem(`loggedIn`);
   if (LogInStatus == 'false') {
     alert('Please Log In to view this Page.');
-    setTimeout((window.location.href = 'index.html'), 2000);
+    setTimeout((window.location.href = '../index.html'), 2000);
   }
 }
 

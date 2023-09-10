@@ -12,7 +12,7 @@ const colors = {
 };
 
 async function initContacts() {
-  await includeHTML();
+  initTemplate('contacts');
   await loadContacts();
 }
 

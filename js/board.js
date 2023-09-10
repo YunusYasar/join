@@ -9,11 +9,14 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 async function initBoard() {
-  await includeHTML();
+  initTemplate('board');
   getCategory();
   await loadTasks();
   await loadContacts();
   renderToDoCard();
+  
+  
+  
 }
 async function moveTo(status) {
   tasks[currentDraggedElement]['status'] = status;

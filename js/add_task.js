@@ -13,7 +13,7 @@ let selectedPrio = null;
 let currentSubtasks = [];
 
 async function initTask() {
-  await includeHTML();
+  initTemplate('addTask');
   getCategory();
   await loadTasks();
   await loadContacts();
