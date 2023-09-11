@@ -2,22 +2,20 @@ let editedPriority = null;
 
 let currentDraggedElement;
 
+async function initBoard() {
+  await initTemplate('board');
+  getCategory();
+  await loadTasks();
+  await loadContacts();
+  renderToDoCard();
+}
 function startDragging(index) {
   currentDraggedElement = index;
 }
 function allowDrop(ev) {
   ev.preventDefault();
 }
-async function initBoard() {
-  initTemplate('board');
-  getCategory();
-  await loadTasks();
-  await loadContacts();
-  renderToDoCard();
-  
-  
-  
-}
+
 async function moveTo(status) {
   tasks[currentDraggedElement]['status'] = status;
   renderToDoCard();

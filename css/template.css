@@ -1,13 +1,12 @@
-
-body{
+body {
   margin: 0;
 }
 
-#sidebar{
-  font-family: "Inter";
+#sidebar {
+  font-family: 'Inter';
   z-index: 8;
-  background-color: #2A3647;
-  color: #A4A7AB;
+  background-color: #2a3647;
+  color: #a4a7ab;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -20,64 +19,64 @@ body{
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-#sidebar_logo{
+#sidebar_logo {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 48px;
 }
 
-.sidebar_link{
+.sidebar_link {
   text-decoration: none;
-  color: #A4A7AB
+  color: #a4a7ab;
 }
 
-#sidebar_categories{
+#sidebar_categories {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width:100%;
+  width: 100%;
   font-size: 20px;
   margin: 160px 0;
   gap: 15px;
 }
 
-.sidebar_category{
+.sidebar_category {
   display: flex;
-  justify-content:center;
-  align-items: center;  
+  justify-content: center;
+  align-items: center;
   object-fit: cover;
-  width: 100%;    
+  width: 100%;
   height: 48px;
   cursor: pointer;
 }
 
-.sidebar_category:hover{
-  background-color: #2A3B54;
-}    
+.sidebar_category:hover {
+  background-color: #2a3b54;
+}
 
-.active_category{
+.active_category {
   background-color: #091931;
-  color: #FFFFFF;
+  color: #ffffff;
   pointer-events: none;
 }
 
-.active_category img{
+.active_category img {
   filter: brightness(0) invert(1);
 }
 
-.sidebar_category_line{
+.sidebar_category_line {
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 8px;  
+  gap: 8px;
 }
 
-.sidebar_category_line a{
+.sidebar_category_line a {
   text-decoration: none;
-  color:inherit;    
+  color: inherit;
 }
 
 .category_img {
@@ -88,7 +87,7 @@ body{
   justify-content: flex-start;
 }
 
-#sidebar_policies{
+#sidebar_policies {
   flex: 1;
   font-size: 18px;
   display: flex;
@@ -99,18 +98,18 @@ body{
   gap: 12px;
 }
 
-#sidebar_policies a{
+#sidebar_policies a {
   text-decoration: none;
   color: #919296;
 }
 
-#sidebar_policies a:hover{
-  color: #29ABE2;
+#sidebar_policies a:hover {
+  color: #29abe2;
 }
 
-#topbar{
+#topbar {
   z-index: 10;
-  font-family: "Inter";
+  font-family: 'Inter';
   position: fixed;
   top: 0;
   right: 0;
@@ -124,12 +123,11 @@ body{
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-#topbar_text{
+#topbar_text {
   padding-left: 8%;
-
 }
 
-#topbar_icons{
+#topbar_icons {
   padding-right: 40px;
   display: flex;
   gap: 24px;
@@ -138,7 +136,7 @@ body{
   cursor: pointer;
 }
 
-#topbar_Icons_Username{
+#topbar_Icons_Username {
   width: 50px;
   height: 50px;
   border: 3px solid black;
@@ -147,45 +145,44 @@ body{
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  color: #29ABE2;
+  color: #29abe2;
   cursor: pointer;
 }
 
-
-#popupBar{
+#popupBar {
   position: fixed;
   top: 96px;
   right: 40px;
   width: 130px;
   height: 86px !important;
   border-radius: 20px 0 20px 20px;
-  box-shadow: 0 0 4px ;
-  background-color: #2A3647;
-  color: #CDCDCD;
+  box-shadow: 0 0 4px;
+  background-color: #2a3647;
+  color: #cdcdcd;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;    
-  font-family: "Inter";
+  justify-content: center;
+  font-family: 'Inter';
   gap: 12px;
+  z-index: 999;
 }
 
-#popupBar a{
+#popupBar a {
   text-decoration: none;
-  color: #CDCDCD;
+  color: #cdcdcd;
   font-size: 16px;
   font-weight: 400;
 }
 
-#popupBar a:hover{
-  color: #FFFFFF;
+#popupBar a:hover {
+  color: #ffffff;
 }
 
-
-.d-none{
+.d-none {
   display: none !important;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
 }
