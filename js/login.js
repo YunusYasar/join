@@ -5,11 +5,17 @@ function init() {
   loadCache();
 }
 
+function checkLocalStorage () {
+  if (localStorage.length === 0) {
+    window.location.href = "../index.html";
+  }
+  }
+
 async function loadUsers() {
   try {
     users = JSON.parse(await getItem('users'));
   } catch (e) {
-    console.error('Loading error:', e);
+    //console.error('Loading error:', e);
   }
 }
 
@@ -37,6 +43,7 @@ function guestUser() {
 }
 
 function checkLogIn() {
+  checkLocalStorage();
   let LogInStatus = localStorage.getItem(`loggedIn`);
   if (LogInStatus == 'false') {
     alert('Please Log In to view this Page.');

@@ -38,7 +38,7 @@ body {
   .loading-screen {
     top: 30px;
     left: 30px;
-    background-color: #f6f7f8;
+    /*background-color: #f6f7f8;*/
     width: 100vw;
     height: 100vh;
     opacity: 1;
@@ -78,7 +78,14 @@ body {
     padding: 48px 115px;
     border-radius: 30px;
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    opacity: 0;
+    animation: showContainer 1s forwards 1.5s;
   }
+
+  @keyframes showContainer {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
   
   .login-container h1 {
     margin-top: -10px;
@@ -373,5 +380,7 @@ body {
   
     .main-page {
       align-items: flex-start;
+
+      
     }
   }

@@ -15,7 +15,6 @@ body {
   .loading-screen {
     top: 30px;
     left: 30px;
-    background-color: #f6f7f8;
     opacity: 1;
     visibility: visible;
     z-index: 9999;

@@ -12,6 +12,7 @@ const colors = {
 };
 
 async function initContacts() {
+  checkLogIn();
   await initTemplate('contacts');
   await loadContacts();
 }

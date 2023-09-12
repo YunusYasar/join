@@ -13,6 +13,7 @@ let selectedPrio = null;
 let currentSubtasks = [];
 
 async function initTask() {
+  checkLogIn();
   await initTemplate('addTask');
   getCategory();
   await loadTasks();

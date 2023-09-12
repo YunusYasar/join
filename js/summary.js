@@ -6,8 +6,8 @@ async function loadSummary() {
 }
 
 function greetingSummary() {
-  createGreetingPhrase();
-  createNameGreating();
+  setTimeout(createGreetingPhrase, 300);
+   setTimeout(createNameGreating,150);
   fadeGreeting();
 }
 
@@ -141,3 +141,5 @@ function doneTasks() {
           ${done.length}
       `;
 }
+
+

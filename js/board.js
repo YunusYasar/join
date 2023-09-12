@@ -3,6 +3,7 @@ let editedPriority = null;
 let currentDraggedElement;
 
 async function initBoard() {
+  checkLogIn();
   await initTemplate('board');
   getCategory();
   await loadTasks();
