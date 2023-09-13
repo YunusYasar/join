@@ -63,6 +63,7 @@ let currentSubtasks = [];
  * @returns {Promise<void>}
  */
 async function initTask() {
+  checkLogIn();
   await initTemplate('addTask');
   getCategory();
   await loadTasks();

@@ -14,6 +14,7 @@ let currentDraggedElement;
  * Initialize the board by loading required templates, categories, tasks, and contacts. Then renders the To-Do cards.
  */
 async function initBoard() {
+  checkLogIn();
   await initTemplate('board');
   getCategory();
   await loadTasks();

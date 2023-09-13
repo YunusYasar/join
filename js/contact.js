@@ -23,6 +23,7 @@ const colors = {
  * Initializes contacts by loading templates and contacts.
  */
 async function initContacts() {
+  checkLogIn();
   await initTemplate('contacts');
   await loadContacts();
 }
