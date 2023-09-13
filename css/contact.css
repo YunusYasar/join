@@ -6,7 +6,7 @@ body {
 main {
   display: flex;
   margin-left: 232px;
-  margin-top: 95px;
+  margin-top: 80px;
   height: calc(100vh - 95px);
   background-color: var(--bg-color);
   overflow: hidden;
@@ -23,7 +23,7 @@ main {
   position: absolute;
   width: 280px;
   left: 40px;
-  top: 16px;
+  top: 34px;
   z-index: 999;
 }
 
@@ -73,7 +73,7 @@ main {
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  z-index: 99;
+  z-index: 9;
 }
 
 .line-list {
@@ -124,6 +124,12 @@ main {
   font-size: 21px;
   border: 1px solid var(--fntcolor);
 }
+.user-form input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .input-wrapper {
   position: relative;
 }
@@ -153,10 +159,10 @@ main {
 .contact-wrapper {
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 .contact-wrapper:first-child {
-  margin-top: 68px;
+  margin-top: 85px;
 }
 
 .contactlist-data {

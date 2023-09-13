@@ -49,7 +49,7 @@ h1 {
 
 .add-task-form {
   display: flex;
-  /* height: 600px; */
+  height: 600px;
 }
 
 .add-task-form > div {
@@ -239,7 +239,7 @@ textarea::placeholder {
 #subtask-box {
   display: flex;
   flex-direction: column;
-  height: 130px;
+  max-height: 130px;
   overflow: scroll;
 }
 
@@ -253,8 +253,8 @@ textarea::placeholder {
   align-items: center;
   gap: 8px !important;
   position: absolute;
-  right: 14px;
-  top: 47px;
+  right: 40px;
+  top: 14px;
 }
 
 .add-category-img-box > div {
@@ -572,7 +572,22 @@ form > div {
   justify-content: space-between;
   align-items: center;
 }
-
+.addtaskformTemplateModal {
+  height: 100%;
+}
+.dropdownAddNewCategory {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+}
+#addNewCategory {
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+}
+.input-new-category {
+  height: 21px !important;
+}
 @media (max-width: 1200px) {
   main {
     overflow-y: auto;
@@ -586,7 +601,7 @@ form > div {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
   }
   .seperator {
     margin-bottom: 8px;
@@ -611,7 +626,7 @@ form > div {
 @media (max-width: 850px) {
   main {
     margin-left: 0;
-    height: 80vh;
+    height: 100vh;
     justify-content: flex-start;
   }
   .header {

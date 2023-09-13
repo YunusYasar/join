@@ -7,7 +7,7 @@ body {
 main {
   margin-left: 232px;
   /*sidebar-width*/
-  margin-top: 95px;
+  margin-top: 80px;
   /*header-height*/
   min-height: calc(100vh - 95px);
   display: flex;
@@ -157,8 +157,11 @@ input::placeholder {
   box-shadow: var(--drop-shadow);
   cursor: pointer;
   position: relative;
+  width: 252px !important;
 }
-
+.task:hover {
+  transform: rotate(2deg);
+}
 .mobile-category-box {
   display: none;
   z-index: 100;
@@ -642,7 +645,7 @@ input::placeholder {
     margin-left: 0;
     justify-content: flex-start;
     min-height: auto;
-    margin-bottom: 10vh;
+    margin-bottom: 0vh;
     width: 100%;
     height: 80vh;
   }

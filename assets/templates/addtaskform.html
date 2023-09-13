@@ -14,16 +14,20 @@
 
     <div id="category-box" class="input-box">
       <span class="label">Category</span>
-      <div class="dropdown" onclick="toggleDropdown()" id="category">
-        <span id="selectedCategory">Select task category</span>
+      <div class="dropdown dropdownAddNewCategory" onclick="toggleDropdown()" id="category">
+        <span class="" id="selectedCategory">Select task category</span>
+        <span class="d-none" id="addNewCategory" onclick="createNewCategory()">Add new category</span>
         <div class="dropdown-content" id="dropdownContent"></div>
         <img class="open-arrow" src="../assets/img/open-select-arrow.svg" alt="arrow-down" />
       </div>
+      <div class="d-none" id="color-picker-box"></div>
+      <div id="errorTagCategory" class="error-msg-task d-none">Please select a category</div>
+      <div id="errorTagCategory" class="error-msg-task d-none">Please select a color</div>
     </div>
 
     <div id="add-task-assigned-to-box" class="input-box">
       <span class="label">Assigned to</span>
-      <div class="dropdown" onclick="toggleDropdownContacts()" id="assignedContactsList">
+      <div class="dropdown dropdownContacts" onclick="toggleDropdownContacts()" id="assignedContactsList">
         <span id="selectedCategory">Select contacts to assign</span>
         <div class="dropdown-content-contacts" id="dropdownContentContacts"></div>
         <img class="open-arrow" src="../assets/img/open-select-arrow.svg" alt="arrow-down" />

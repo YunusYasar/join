@@ -1,3 +1,10 @@
+/**
+ * Generates the HTML for the edit contact modal.
+ *
+ * @param {Object} contact - The contact object to be edited.
+ * @param {number} i - Index of the contact in the contact list.
+ * @returns {string} - HTML string for the edit contact modal.
+ */
 function editContactModalHTML(contact, i) {
   return `
       <div onclick="noClose(event)" id="editContact" class="modal-inner-container">
@@ -41,6 +48,13 @@ function editContactModalHTML(contact, i) {
       `;
 }
 
+/**
+ * Generates the HTML for displaying the current contact.
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {number} i - Index of the contact in the contact list.
+ * @returns {string} - HTML string for the current contact.
+ */
 function currentContactHTML(contact, i) {
   return `
     <div>
@@ -76,6 +90,15 @@ function currentContactHTML(contact, i) {
     </div>`;
 }
 
+/**
+ * Generates the HTML for displaying assigned contacts.
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {string} initials - Initials of the contact's name.
+ * @param {number} index - Index of the contact in the contact list.
+ * @param {boolean} isChecked - Determines whether the contact checkbox is checked or not.
+ * @returns {string} - HTML string for the assigned contact.
+ */
 function appendAssignedContactHTML(contact, initials, index, isChecked) {
   return `
         <div class="contact-card-assigned">
@@ -91,7 +114,16 @@ function appendAssignedContactHTML(contact, initials, index, isChecked) {
         `;
 }
 
+/**
+ * Generates the HTML for displaying a to-do task.
+ *
+ * @param {Object} task - The task object to be displayed.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the to-do task.
+ */
 function generateToDoHTML(task, index) {
+  let categoryMatched = categories.find(cat => cat.name === task.category);
+  let categoryColor = categoryMatched.color || '#FFFFFF';
   let contactHTML = '';
   if (task.contacts) {
     task.contacts.forEach(contact => {
@@ -99,7 +131,8 @@ function generateToDoHTML(task, index) {
     });
   }
   return /*html*/ `
-      <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">    <span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}</span>
+      <div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">
+        <span style="background-color: ${categoryColor}" class="task-category">${task.category}</span>
         <div class="arrow-div">
          <img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'previous')" 
              style="transform: rotate(90deg);" 
@@ -129,6 +162,13 @@ function generateToDoHTML(task, index) {
         `;
 }
 
+/**
+ * Generates the HTML for displaying the modal of a to-do task.
+ *
+ * @param {Object} task - The task object to be displayed in modal.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the to-do modal.
+ */
 function generateToDoModalHTML(task, index) {
   let contactHTML = '';
   if (task.contacts) {
@@ -185,6 +225,13 @@ function generateToDoModalHTML(task, index) {
         `;
 }
 
+/**
+ * Generates the HTML for editing a to-do task inside a modal.
+ *
+ * @param {Object} task - The task object to be edited.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the edit task modal.
+ */
 function editTaskModalHTML(task, index) {
   const urgentHighlight = task.priority === 'urgent' ? '' : 'd-none';
   const mediumHighlight = task.priority === 'medium' ? '' : 'd-none';
@@ -249,8 +296,7 @@ function editTaskModalHTML(task, index) {
               </div>
           
               <div id="subtask-edit-box"></div>
-    
-               
+              
             </div>
             <button onclick="saveEditedTask(${index});" class="button-with-icon edit-submit-task-button" >
               OK
@@ -259,4 +305,98 @@ function editTaskModalHTML(task, index) {
           </form>
           </div>
         `;
+}
+
+/**
+ * Generates and returns the HTML for a subtask progress bar.
+ * @param {Array} subtasks - The list of subtasks.
+ * @param {number} subtaskPercent - The percentage of completed subtasks.
+ * @param {number} completedSubtasks - The count of completed subtasks.
+ * @returns {string} The HTML for the progress bar.
+ */
+function getProgressBarHTML(subtasks, subtaskPercent, completedSubtasks) {
+  return /*html*/ `
+    <div class="progress-bar-box">
+    <div style="width: ${subtaskPercent}%;" class="progress-bar-bar"></div>
+    </div>
+    <div class="subtask-text-box">
+    <span>${completedSubtasks}/${subtasks.length}</span> 
+    <span>Done</span>
+    </div>
+  `;
+}
+
+/**
+ * Generates and returns the HTML for an open subtask.
+ * @param {number} taskIndex - The index of the parent task.
+ * @param {Object} subtask - The subtask object.
+ * @param {string} functionName - The name of the function to call on change.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} - The generated HTML.
+ */
+function getSubtaskOpenHTML(taskIndex, subtask, functionName, index) {
+  return /*html*/ `
+    <label onchange="${functionName}(${taskIndex}, ${index})"><input id="overlayCheckbox${index}" type="checkbox"> ${subtask.name}</label>
+  `;
+}
+
+/**
+ * Generates and returns the HTML for a closed subtask.
+ * @param {number} taskIndex - The index of the parent task.
+ * @param {Object} subtask - The subtask object.
+ * @param {string} functionName - The name of the function to call on change.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} - The generated HTML.
+ */
+function getSubtaskClosedHTML(taskIndex, subtask, functionName, index) {
+  return /*html*/ `
+    <label onchange="${functionName}(${taskIndex}, ${index})"><input id="overlayCheckbox${index}" checked  type="checkbox"> ${subtask.name}</label>
+  `;
+}
+
+/**
+ * Returns an HTML template for creating a new category.
+ * @returns {string} An HTML template for the new category input form.
+ */
+function getCreateNewCategoryHTML() {
+  return /*html*/ `
+      <input placeholder="New category name" class="input-new-category" id="category-input" onclick="noClose(event)" type="text"/>
+      <div class="add-category-img-box">
+        <img onclick="clearInput('category-input')" class="subtask-img" src="../assets/img/cancel-icon.svg" alt=""/>
+      <div class="seperator-small"></div>
+        <img onclick="addNewCategory()" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt=""/>
+      </div>
+  `;
+}
+
+/**
+ * Returns an HTML representation of a color for the color picker.
+ * @param {string} color - The color code.
+ * @param {number} index - The index of the color in the categoryColors array.
+ * @returns {string} An HTML representation of the color.
+ */
+function getColorHTML(color, index) {
+  return /*html*/ `
+     <div id="color${index}" onclick="selectColor('${color}', 'color${index}')" class="color-picker-color" style="background-color: ${color}"></div>
+  `;
+}
+
+/**
+ * Generates HTML for a given subtask.
+ * @param {Object} subtask - The subtask object.
+ * @param {number} i - Index of the subtask.
+ * @param {Object} [task=null] - The task object, if available.
+ * @param {string} targetDivId - The ID of the target container.
+ * @returns {string} - Returns the generated HTML string.
+ */
+function getSubtaskHTML(subtask, i, task = null, targetDivId) {
+  let subtaskName = task ? subtask.name : subtask.name;
+  return /*html*/ `
+    <div class="subtasks-content">
+      <span>
+        - ${subtaskName}
+      </span>
+      <img onclick="deleteSubtask(${i},'${targetDivId}')" class="subtask-img" src="../assets/img/delete.svg" alt="" />
+    </div> 
+    `;
 }

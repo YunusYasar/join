@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Summary</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/logo-join.png" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/join-logo-summary.png" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/responsiv.css" />
@@ -44,7 +44,7 @@
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
             <span>To do</span>
-            <div onclick="addTaskModal()">
+            <div onclick="addTaskModal('toDo')">
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
@@ -53,7 +53,7 @@
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
             <span>In progress</span>
-            <div onclick="addTaskModal()">
+            <div onclick="addTaskModal('inProgress')">
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
@@ -62,7 +62,7 @@
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
             <span>Awaiting Feedback</span>
-            <div onclick="">
+            <div onclick="addTaskModal('awaitingFeedback')">
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
@@ -71,7 +71,7 @@
         <div class="drag-and-drop-row">
           <div class="drag-and-drop-header">
             <span>Done</span>
-            <div onclick="addTaskModal()">
+            <div onclick="addTaskModal('done')">
               <img src="../assets/img/add-task-main-color-icon.svg" alt="add-task-icon" />
             </div>
           </div>
@@ -80,7 +80,7 @@
       </section>
       <section onclick="addTaskModal()" id="addTaskModal" class="modal-container">
         <div onclick="noClose(event)" id="addTaskInModal" class="modal-inner-container add-task-modal">
-          <div w3-include-html="../assets/templates/addtaskform.html"></div>
+          <div class="addtaskformTemplateModal" w3-include-html="../assets/templates/addtaskform.html"></div>
         </div>
       </section>
 

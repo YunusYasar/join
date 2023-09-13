@@ -1,7 +1,18 @@
+/**
+ * Represents the edited priority for a task.
+ * @type {string|null}
+ */
 let editedPriority = null;
 
+/**
+ * Represents the currently dragged element (typically used in drag-and-drop operations).
+ * @type {HTMLElement|null}
+ */
 let currentDraggedElement;
 
+/**
+ * Initialize the board by loading required templates, categories, tasks, and contacts. Then renders the To-Do cards.
+ */
 async function initBoard() {
   await initTemplate('board');
   getCategory();
@@ -9,27 +20,46 @@ async function initBoard() {
   await loadContacts();
   renderToDoCard();
 }
+
+/**
+ * Sets the current dragging element's index.
+ * @param {number} index - The index of the task being dragged.
+ */
 function startDragging(index) {
   currentDraggedElement = index;
 }
+
+/**
+ * Prevents the default behavior during a dragover event to allow for dropping.
+ * @param {Event} ev - The dragover event.
+ */
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
+/**
+ * Updates the status of the currently dragged task and re-renders the task cards.
+ * @param {string} status - The status to which the task should be moved.
+ */
 async function moveTo(status) {
   tasks[currentDraggedElement]['status'] = status;
   renderToDoCard();
   await uploadTasks();
 }
 
-function startDragging(index) {
-  currentDraggedElement = index;
-}
-
+/**
+ * Uploads the current tasks to storage.
+ */
 async function uploadTasks() {
   await setItem('tasks', JSON.stringify(tasks));
 }
 
+/**
+ * Updates the status of a task on mobile, based on given direction (previous or next).
+ * @param {number} index - The index of the task to update.
+ * @param {string} status - The current status of the task.
+ * @param {string} doWhat - Direction to move the task status (either 'previous' or 'next').
+ */
 async function changeStatusMobile(index, status, doWhat) {
   const availibleStatus = ['toDo', 'inProgress', 'awaitingFeedback', 'done'];
   const task = tasks[index];
@@ -46,6 +76,11 @@ async function changeStatusMobile(index, status, doWhat) {
   renderToDoCard();
 }
 
+/**
+ * Renders the progress bar for a task's subtasks.
+ * @param {Object} task - The task containing the subtasks.
+ * @param {number} index - The index of the task for which to render the progress bar.
+ */
 function renderSubtaskProgressBar(task, index) {
   const container = document.getElementById(`subtask-box-progress-bar-${index}`);
   const subtasks = task.subtasks;
@@ -60,20 +95,12 @@ function renderSubtaskProgressBar(task, index) {
   }
 }
 
-function getCompletedSubtasks(subtasks) {
-  if (subtasks) {
-    let completedSubtasks = 0;
-
-    subtasks.forEach(subtasks => {
-      if (subtasks.status === 'closed') {
-        completedSubtasks++;
-      }
-    });
-
-    return completedSubtasks;
-  }
-}
-
+/**
+ * Calculates and returns the percentage of completed subtasks.
+ * @param {Array} subtasks - The list of subtasks.
+ * @param {number} completedSubtasks - The count of completed subtasks.
+ * @returns {number} The percentage of completed subtasks.
+ */
 function getCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
   subtasks.forEach(subtask => {
@@ -84,6 +111,12 @@ function getCompletedSubtasks(subtasks) {
   return completedSubtasks;
 }
 
+/**
+ * Calculates and returns the percentage of completed subtasks.
+ * @param {Array} subtasks - The list of subtasks.
+ * @param {number} completedSubtasks - The count of completed subtasks.
+ * @returns {number} The percentage of completed subtasks.
+ */
 function getSubtaskPercent(subtasks, completedSubtasks) {
   if (subtasks) {
     const totalSubtasks = subtasks.length;
@@ -93,18 +126,9 @@ function getSubtaskPercent(subtasks, completedSubtasks) {
   }
 }
 
-function getProgressBarHTML(subtasks, subtaskPercent, completedSubtasks) {
-  return /*html*/ `
-    <div class="progress-bar-box">
-    <div style="width: ${subtaskPercent}%;" class="progress-bar-bar"></div>
-    </div>
-    <div class="subtask-text-box">
-    <span>${completedSubtasks}/${subtasks.length}</span> 
-    <span>Done</span>
-    </div>
-  `;
-}
-
+/**
+ * Renders the tasks into their respective status sections: toDo, inProgress, awaitingFeedback, and done.
+ */
 function renderToDoCard() {
   const statusArr = ['toDo', 'inProgress', 'awaitingFeedback', 'done'];
 
@@ -125,6 +149,10 @@ function renderToDoCard() {
   });
 }
 
+/**
+ * Opens a modal to display the detailed view of a task.
+ * @param {number} index - The index of the task to open.
+ */
 function openTask(index) {
   renderToDoModalCard(index);
   renderSubtasksOverlay(index);
@@ -136,6 +164,10 @@ function openTask(index) {
   child.classList.toggle('modal-animation');
 }
 
+/**
+ * Renders the details of a task into a modal view.
+ * @param {number} index - The index of the task to render in the modal.
+ */
 function renderToDoModalCard(index) {
   let toDoCardModal = document.getElementById('openTaskInModal');
   toDoCardModal.innerHTML = '';
@@ -143,16 +175,24 @@ function renderToDoModalCard(index) {
   toDoCardModal.innerHTML += generateToDoModalHTML(task, index);
 }
 
+/**
+ * Capitalizes the first letter of a given string.
+ * @param {string} string - The string to capitalize.
+ * @returns {string} - The capitalized string.
+ */
 function capitalizeFirstLetter(string) {
   if (!string) return '';
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Renders subtasks for a specific task in an overlay view.
+ * @param {number} taskIndex - The index of the task for which to render the subtasks.
+ */
 function renderSubtasksOverlay(taskIndex) {
   const container = document.getElementById('subtask-box-overlay');
   const subtaskBoxWrapper = document.getElementById('subtaskBoxWrapper');
   if (!tasks || !tasks[taskIndex] || !tasks[taskIndex].subtasks) {
-    // Überprüfen, ob tasks und subtasks vorhanden sind
     console.error('Tasks or subtasks are not available.');
     return;
   }
@@ -160,7 +200,7 @@ function renderSubtasksOverlay(taskIndex) {
   if (subtasks.length > 0) {
     console.log('Found subtasks:', subtasks);
     subtaskBoxWrapper.classList.remove('d-none');
-    container.innerHTML = ''; // Container leeren, um alte Subtasks zu entfernen
+    container.innerHTML = '';
     subtasks.forEach((subtask, index) => {
       if (subtask.status === 'open') {
         container.innerHTML += getSubtaskOpenHTML(taskIndex, subtask, 'updateSubtaskInOverlay', index);
@@ -174,6 +214,11 @@ function renderSubtasksOverlay(taskIndex) {
   }
 }
 
+/**
+ * Renders subtasks into a given container for a specific task.
+ * @param {number} taskIndex - The index of the task for which to render the subtasks.
+ * @param {HTMLElement} container - The container element where the subtasks should be rendered.
+ */
 function renderSubtasksInOverlay(taskIndex, container) {
   const task = tasks[taskIndex];
   const subtasks = task.subtasks;
@@ -190,18 +235,11 @@ function renderSubtasksInOverlay(taskIndex, container) {
   }
 }
 
-function getSubtaskOpenHTML(taskIndex, subtask, functionName, index) {
-  return /*html*/ `
-    <label onchange="${functionName}(${taskIndex}, ${index})"><input id="overlayCheckbox${index}" type="checkbox"> ${subtask.name}</label>
-  `;
-}
-
-function getSubtaskClosedHTML(taskIndex, subtask, functionName, index) {
-  return /*html*/ `
-    <label onchange="${functionName}(${taskIndex}, ${index})"><input id="overlayCheckbox${index}" checked  type="checkbox"> ${subtask.name}</label>
-  `;
-}
-
+/**
+ * Updates the status of a subtask based on a checkbox in an overlay and re-renders the tasks.
+ * @param {number} taskIndex - The index of the parent task.
+ * @param {number} subtaskIndex - The index of the subtask to update.
+ */
 async function updateSubtaskInOverlay(taskIndex, subtaskIndex) {
   const checkbox = document.getElementById('overlayCheckbox' + subtaskIndex);
   const task = tasks[taskIndex];
@@ -216,6 +254,10 @@ async function updateSubtaskInOverlay(taskIndex, subtaskIndex) {
   renderToDoCard();
 }
 
+/**
+ * Deletes a task from the list of tasks and updates storage. Closes the task modal and provides feedback.
+ * @param {number} index - The index of the task to delete.
+ */
 async function deleteTask(index) {
   tasks.splice(index, 1);
   try {
@@ -233,7 +275,10 @@ async function deleteTask(index) {
   showUserFeedbackMessage('Task successfully deleted');
 }
 
-// Hauptfunktion zum Speichern des bearbeiteten Tasks
+/**
+ * Saves the edited details of a task and updates the DOM accordingly.
+ * @param {number} index - The index of the task being edited.
+ */
 function saveEditedTask(index) {
   updateTaskDetails(index);
   setItem('tasks', JSON.stringify(tasks))
@@ -241,7 +286,7 @@ function saveEditedTask(index) {
       renderToDoCard();
       openTask(document.getElementById('editingShowTaskIndex').value);
 
-      let parent = document.getElementById('editTaskModal'); // Das Modal schließen
+      let parent = document.getElementById('editTaskModal');
       let child = document.getElementById('editTaskInModal');
       parent.classList.toggle('modal-bg-animation');
       child.classList.toggle('modal-animation');
@@ -251,7 +296,10 @@ function saveEditedTask(index) {
     });
 }
 
-// Hilfsfunktion zum Aktualisieren der Taskdetails
+/**
+ * Updates the details of a task based on user input.
+ * @param {number} index - The index of the task being updated.
+ */
 function updateTaskDetails(index) {
   const editedTitle = document.getElementById('edit-title').value;
   const editedDescription = document.getElementById('edit-description').value;
@@ -267,26 +315,26 @@ function updateTaskDetails(index) {
   tasks[index].subtasks = currentSubtasks;
 }
 
-// Hauptfunktion zum Setzen der bearbeiteten Priorität
+/**
+ * Sets the priority for a task during editing.
+ * @param {string} prioType - The type of priority ('urgent', 'medium', 'low').
+ */
 function setEditPrio(prioType) {
   const boxes = ['edit-urgent-prio-box', 'edit-medium-prio-box', 'edit-low-prio-box'];
-
-  // Alle Priority-Boxen zurücksetzen
   resetPriorityBoxes(boxes);
-
-  // Aktivieren der ausgewählten Priority-Box
   const currentBox = document.getElementById(`edit-${prioType}-prio-box`);
   currentBox.classList.add(prioType);
   const whiteIcon = currentBox.querySelector('.white-icon');
   whiteIcon.classList.remove('d-none');
   const coloredIcon = currentBox.querySelector(':nth-child(2)');
   coloredIcon.classList.add('d-none');
-
-  // Speichern der bearbeiteten Priorität in einer neuen Variable
   editedPriority = prioType;
 }
 
-// Hilfsfunktion zum Zurücksetzen der Priority-Boxen
+/**
+ * Resets the visual representation of priority boxes to their default state.
+ * @param {string[]} boxes - Array of box IDs to reset.
+ */
 function resetPriorityBoxes(boxes) {
   boxes.forEach(boxId => {
     const box = document.getElementById(boxId);
@@ -298,6 +346,9 @@ function resetPriorityBoxes(boxes) {
   });
 }
 
+/**
+ * Toggles the dropdown for editing contacts.
+ */
 function toggleDropdownEditContacts() {
   let contactsEditList = document.getElementById('dropdownContentEditContacts');
   if (contactsEditList.style.display === 'none' || contactsEditList.style.display === '') {
@@ -307,6 +358,10 @@ function toggleDropdownEditContacts() {
   }
 }
 
+/**
+ * Opens a modal to allow the user to edit the details of a task.
+ * @param {number} index - The index of the task being edited.
+ */
 function editTaskModal(index) {
   let task = tasks[index];
   if (!task) {
@@ -328,25 +383,32 @@ function editTaskModal(index) {
   openTask(document.getElementById('editingShowTaskIndex').value);
 }
 
-//////////////////////////////SEARCH
-
+/**
+ * Holds tasks found during the search operation.
+ */
 let foundTasks = [];
 
+/**
+ * Searches tasks based on the user input and populates the `foundTasks` array.
+ */
 function searchTask() {
   const input = document.getElementById('search-task-input').value.toLowerCase();
   foundTasks = tasks.filter(task => task.title.toLowerCase().includes(input) || task.description.toLowerCase().includes(input));
   renderFilteredTasks();
 }
 
+/**
+ * Renders tasks found during the search operation into their respective status sections.
+ */
 function renderFilteredTasks() {
   const statusArr = ['toDo', 'inProgress', 'awaitingFeedback', 'done'];
   statusArr.forEach(status => {
     const card = document.getElementById(`${status}-area`);
     if (card) {
-      card.innerHTML = ''; // Lösche die aktuellen Karten
+      card.innerHTML = '';
       foundTasks.forEach((task, index) => {
         if (task.status === status) {
-          card.innerHTML += generateToDoHTML(task, index); // Füge die gefilterten Karten hinzu
+          card.innerHTML += generateToDoHTML(task, index);
         }
       });
     } else {
