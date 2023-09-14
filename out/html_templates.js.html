@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: html_templates.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: html_templates.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates the HTML for the edit contact modal.
+ *
+ * @param {Object} contact - The contact object to be edited.
+ * @param {number} i - Index of the contact in the contact list.
+ * @returns {string} - HTML string for the edit contact modal.
+ */
+function editContactModalHTML(contact, i) {
+  return `
+      &lt;div onclick="noClose(event)" id="editContact" class="modal-inner-container">
+       &lt;div class="left-frame-add">
+         &lt;img src="../assets/img/logo_Light.png" alt="Join logo">
+         &lt;div class="contact-info">
+           &lt;h1>Edit contact&lt;/h1>
+         &lt;/div>
+       &lt;/div>
+       &lt;div class="right-frame-add">
+          &lt;div class="img-wrapper" style="background-color: ${contact.color}">
+            ${contact.initials} 
+          &lt;/div>
+         &lt;form class="user-form" id="editContactForm" onsubmit="updateContact(${i}); return false;">
+           &lt;input type="hidden" id="editingIndex">
+           &lt;div class="input-wrapper">
+             &lt;input id="editContactName" required type="text" placeholder="Name">
+             &lt;img src="../assets/img/user-icon.svg" alt="">
+           &lt;/div>
+           &lt;div class="input-wrapper">
+             &lt;input id="editContactEmail" required type="email" placeholder="Email">
+             &lt;img src="../assets/img/login-email.svg" alt="">
+           &lt;/div>
+           &lt;div class="input-wrapper">
+             &lt;input id="editContactPhone" required type="number" placeholder="Phone">
+             &lt;img src="../assets/img/telephone.svg" alt="">
+           &lt;/div>
+           &lt;div class="button-wrapper">
+             &lt;button onclick="deleteContact(${i})" type="reset" class="button-secondary-with-icon">
+              &lt;span>Delete&lt;/span>
+               &lt;img src="../assets/img/cancel-icon.svg" alt="">
+             &lt;/button>
+             &lt;button class="button-with-icon">
+               &lt;span>Save&lt;/span>
+               &lt;img src="../assets/img/checkmark-icon.svg" alt="">
+             &lt;/button>
+           &lt;/div>
+         &lt;/form>
+      &lt;/div>
+      &lt;/div>
+      `;
+}
+
+/**
+ * Generates the HTML for displaying the current contact.
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {number} i - Index of the contact in the contact list.
+ * @returns {string} - HTML string for the current contact.
+ */
+function currentContactHTML(contact, i) {
+  return `
+    &lt;div>
+    &lt;div class="contact-head">
+      &lt;div class="img-wrapper" style="background-color: ${contact.color}">
+          ${contact.initials} 
+      &lt;/div>
+      &lt;h3>${contact.name}&lt;/h3>
+    &lt;/div>
+      &lt;div>
+      &lt;div class="contact-underline">
+          &lt;span>Contact Information&lt;/span>
+          &lt;div class="currentAction">
+          &lt;span class="edit-contact" onclick="deleteContact(${i})">
+              &lt;img class="pencil-img" src="../assets/img/delete.svg" alt="">
+              Delete
+          &lt;/span>
+          &lt;span class="edit-contact" onclick="editContactModal(${i})">
+              &lt;img class="pencil-img" src="../assets/img/edit.svg" alt="">
+              Edit Contact
+          &lt;/span>
+          &lt;/div>
+      &lt;/div>
+      &lt;/div>
+      &lt;div class="contact-parts">
+          &lt;div class="bold">Email&lt;/div>
+          &lt;a href="mailto:${contact.email}">${contact.email}&lt;/a>
+      &lt;/div>
+      &lt;div class="contact-parts">
+          &lt;div class="bold">Phone&lt;/div>
+          &lt;a href="tel:${contact.phone}">${contact.phone}&lt;/a>
+      &lt;/div>
+    &lt;/div>`;
+}
+
+/**
+ * Generates the HTML for displaying assigned contacts.
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {string} initials - Initials of the contact's name.
+ * @param {number} index - Index of the contact in the contact list.
+ * @param {boolean} isChecked - Determines whether the contact checkbox is checked or not.
+ * @returns {string} - HTML string for the assigned contact.
+ */
+function appendAssignedContactHTML(contact, initials, index, isChecked) {
+  return `
+        &lt;div class="contact-card-assigned">
+                &lt;div class="contact-avatar-assigned" style="background-color: ${contact.color}">
+                    &lt;span>${initials}&lt;/span>
+                &lt;/div>
+                &lt;div class="assigned-contact-choice">
+                    &lt;label class="contact-name">${contact.name}
+                    &lt;input type="checkbox" class="assigned-checkbox" value="${index}" ${isChecked}>
+                    &lt;/label>
+                &lt;/div>
+            &lt;/div>
+        `;
+}
+
+/**
+ * Generates the HTML for displaying a to-do task.
+ *
+ * @param {Object} task - The task object to be displayed.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the to-do task.
+ */
+function generateToDoHTML(task, index) {
+  let categoryMatched = categories.find(cat => cat.name === task.category);
+  let categoryColor = categoryMatched.color || '#FFFFFF';
+  let contactHTML = '';
+  if (task.contacts) {
+    task.contacts.forEach(contact => {
+      contactHTML += `&lt;span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}&lt;/span>`;
+    });
+  }
+  return /*html*/ `
+      &lt;div onclick="openTask(${index})" class="task" draggable="true" ondragstart="startDragging('${index}')">
+        &lt;span style="background-color: ${categoryColor}" class="task-category">${task.category}&lt;/span>
+        &lt;div class="arrow-div">
+         &lt;img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'previous')" 
+             style="transform: rotate(90deg);" 
+             class="arraw-task ${task.status === 'toDo' ? 'd-none' : ''}" 
+             src="../assets/img/arrow-left.svg" alt="">
+    
+         &lt;img onclick="noClose(event), changeStatusMobile(${index}, '${task.status}', 'next')" 
+             style="transform: rotate(-90deg);" 
+             class="arraw-task ${task.status === 'done' ? 'd-none' : ''}" 
+             src="../assets/img/arrow-left.svg" alt="">
+        &lt;/div>  
+        &lt;div class="task-title-description-box">
+              &lt;b>${task.title}&lt;/b>
+              &lt;p>${task.description}&lt;/p>
+        &lt;/div>
+        &lt;div id="subtask-box-progress-bar-${index}" class="subtask-box">         
+      &lt;/div>
+      &lt;div class="assign-and-prio-box">
+        &lt;div class="assigned-to-overview-box" id="overview-assigned-to-box${index}">
+            ${contactHTML}
+        &lt;/div>
+        &lt;div class="task-prio-box">
+          &lt;img src="../assets/img/${task.priority}-prio-icon-small.svg" alt="" />
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+        `;
+}
+
+/**
+ * Generates the HTML for displaying the modal of a to-do task.
+ *
+ * @param {Object} task - The task object to be displayed in modal.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the to-do modal.
+ */
+function generateToDoModalHTML(task, index) {
+  let contactHTML = '';
+  if (task.contacts) {
+    task.contacts.forEach(contact => {
+      contactHTML += `&lt;div class="todo-modal-open-card">&lt;span style="background-color: ${contact.color}" class="assigned-to-display">${getInitials(contact.name)}&lt;/span>
+            &lt;span>${contact.name}&lt;/span>&lt;/div>`;
+    });
+  }
+  return /*html*/ `
+          &lt;div>
+          &lt;input type="hidden" id="editingShowTaskIndex">
+            &lt;span style="background-color: ${categories.find(cat => cat.name === task.category).color}" class="task-category">${task.category}&lt;/span>
+            &lt;b class="overlay-headline">${task.title}&lt;/b>
+            &lt;p>${task.description}&lt;/p>
+            &lt;div class="overlay-due-date">
+              &lt;b>Due date:&lt;/b>
+              &lt;span>${task.dueDate}&lt;/span>
+            &lt;/div>
+            &lt;div class="overlay-prio">
+              &lt;b>Priority:&lt;/b>
+              &lt;div id="overlayPrioBox">
+                &lt;div class="overview-prio-box ${task.priority}">
+                &lt;span>${capitalizeFirstLetter(task.priority)}&lt;/span>
+                  &lt;img src="../assets/img/${task.priority}-prio-white-icon-small.svg" alt="">
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+            &lt;b>Assigned To:&lt;/b>
+            &lt;div id="assigned-to-box">
+            &lt;div class="assigned-to-overview-box" id="overview-assigned-to-box${index}">
+               &lt;div>
+                  ${contactHTML} 
+               &lt;/div> 
+              &lt;/div>
+            &lt;/div>
+            &lt;div id="subtaskBoxWrapper" class="add-task-overlay-input-box">
+              &lt;b>Subtasks:&lt;/b>
+              &lt;div id="subtask-box-overlay">
+                
+              &lt;/div>
+            &lt;/div>
+            &lt;img onclick="openTask(${index})" class="overlay-close-button" src="../assets/img/x-icon.svg" alt="X">
+            &lt;div class="open-task-underline">
+            &lt;span class="delete-edit-task" onclick="deleteTask(${index})">
+                &lt;img src="../assets/img/delete.svg" alt="">
+                Delete
+            &lt;/span>
+            &lt;span class="delete-edit-task" onclick="editTaskModal(${index})">
+                &lt;img src="../assets/img/edit.svg" alt="">
+                Edit
+            &lt;/span>
+            &lt;/div>
+          &lt;/div>
+        `;
+}
+
+/**
+ * Generates the HTML for editing a to-do task inside a modal.
+ *
+ * @param {Object} task - The task object to be edited.
+ * @param {number} index - Index of the task in the task list.
+ * @returns {string} - HTML string for the edit task modal.
+ */
+function editTaskModalHTML(task, index) {
+  const urgentHighlight = task.priority === 'urgent' ? '' : 'd-none';
+  const mediumHighlight = task.priority === 'medium' ? '' : 'd-none';
+  const lowHighlight = task.priority === 'low' ? '' : 'd-none';
+
+  return /*html*/ `
+          &lt;div onclick="noClose(event)" id="editTaskInModal" class="modal-inner-container add-task-modal task-in-modal">
+          
+          &lt;form onsubmit=" return false;" class="add-task-form add-form-overlay edit-task-form">
+            &lt;input type="hidden" id="editingTaskIndex">
+            &lt;div class="input-box">
+              &lt;label for="edit-title">Title&lt;/label>
+              &lt;input type="text" id="edit-title" value="${task.title}">
+            &lt;/div>
+            &lt;div class="input-box">
+              &lt;label for="edit-description">Description&lt;/label>
+              &lt;textarea id="edit-description">${task.description}&lt;/textarea>
+            &lt;/div>
+            &lt;div class="input-box date-box">
+              &lt;label for="due-date">Due date&lt;/label>
+              &lt;input required onclick="setMinDate()" type="date" name="due-date" id="edit-due-date" value="${task.dueDate}">
+            &lt;/div>
+            &lt;!-- Priority edit section -->
+            &lt;div id="prio-box-wrapper" class="input-box">
+              &lt;label for="edit-prio">Prio&lt;/label>
+                &lt;div id="prio-box">
+                  &lt;div id="edit-urgent-prio-box" onclick="setEditPrio('urgent')">
+                    &lt;span>Urgent&lt;/span>
+                    &lt;img src="../assets/img/urgent-prio-icon-small.svg" alt="urgent-prio" />
+                    &lt;img class="white-icon ${urgentHighlight}" src="../assets/img/urgent-prio-white-icon-small.svg" alt="urgent-prio" />
+                  &lt;/div>
+                  &lt;div id="edit-medium-prio-box" onclick="setEditPrio('medium')">
+                    &lt;span>Medium&lt;/span>
+                    &lt;img src="../assets/img/medium-prio-icon-small.svg" alt="medium-prio" />
+                    &lt;img class="white-icon ${mediumHighlight}" src="../assets/img/medium-prio-white-icon-small.svg" alt="medium-prio" />
+                  &lt;/div>
+                  &lt;div id="edit-low-prio-box" onclick="setEditPrio('low')">
+                    &lt;span>Low&lt;/span>
+                    &lt;img src="../assets/img/low-prio-icon-small.svg" alt="low-prio" />
+                    &lt;img class="white-icon ${lowHighlight}" src="../assets/img/low-prio-white-icon-small.svg" alt="low-prio" />
+                  &lt;/div>
+                &lt;/div>
+                &lt;div id="errorTagPrio" class="error-msg-task d-none">Please select a priority&lt;/div>
+            &lt;/div>
+            &lt;div id="add-task-assigned-to-box" class="input-box">
+              &lt;span class="label">Assigned to&lt;/span>
+              &lt;div class="dropdown" onclick="toggleDropdownEditContacts()" id="assignedContactsList">
+                &lt;span id="selectedEditCategory">Select contacts to assign&lt;/span>
+                &lt;div class="dropdown-content-contacts edit-contacts-dropdown" id="dropdownContentEditContacts">&lt;/div>
+                &lt;img class="open-arrow" src="../assets/img/open-select-arrow.svg" alt="arrow-down" />
+              &lt;/div>
+            &lt;/div>
+            &lt;div id="subtask-box-wrapper" class="input-box">
+              &lt;label for="subtask-input">Subtasks&lt;/label>
+              &lt;div class="input-with-icons">
+                &lt;input placeholder="Add new subtask" id="subtask-input-edit" type="text" name="subtask-input" />
+                &lt;div class="input-icon-box">
+                  &lt;img onclick="clearInput('subtask-input-edit')" class="subtask-img" src="../assets/img/cancel-icon.svg" alt="" />
+                  &lt;div class="seperator-small">&lt;/div>
+                  &lt;img onclick="addSubtask('subtask-edit-box')" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt="" />
+                &lt;/div>
+              &lt;/div>
+          
+              &lt;div id="subtask-edit-box">&lt;/div>
+              
+            &lt;/div>
+            &lt;button onclick="saveEditedTask(${index});" class="button-with-icon edit-submit-task-button" >
+              OK
+              &lt;img src="../assets/img/checkmark-icon.svg" alt="">
+            &lt;/button>
+          &lt;/form>
+          &lt;/div>
+        `;
+}
+
+/**
+ * Generates and returns the HTML for a subtask progress bar.
+ * @param {Array} subtasks - The list of subtasks.
+ * @param {number} subtaskPercent - The percentage of completed subtasks.
+ * @param {number} completedSubtasks - The count of completed subtasks.
+ * @returns {string} The HTML for the progress bar.
+ */
+function getProgressBarHTML(subtasks, subtaskPercent, completedSubtasks) {
+  return /*html*/ `
+    &lt;div class="progress-bar-box">
+    &lt;div style="width: ${subtaskPercent}%;" class="progress-bar-bar">&lt;/div>
+    &lt;/div>
+    &lt;div class="subtask-text-box">
+    &lt;span>${completedSubtasks}/${subtasks.length}&lt;/span> 
+    &lt;span>Done&lt;/span>
+    &lt;/div>
+  `;
+}
+
+/**
+ * Generates and returns the HTML for an open subtask.
+ * @param {number} taskIndex - The index of the parent task.
+ * @param {Object} subtask - The subtask object.
+ * @param {string} functionName - The name of the function to call on change.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} - The generated HTML.
+ */
+function getSubtaskOpenHTML(taskIndex, subtask, functionName, index) {
+  return /*html*/ `
+    &lt;label onchange="${functionName}(${taskIndex}, ${index})">&lt;input id="overlayCheckbox${index}" type="checkbox"> ${subtask.name}&lt;/label>
+  `;
+}
+
+/**
+ * Generates and returns the HTML for a closed subtask.
+ * @param {number} taskIndex - The index of the parent task.
+ * @param {Object} subtask - The subtask object.
+ * @param {string} functionName - The name of the function to call on change.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} - The generated HTML.
+ */
+function getSubtaskClosedHTML(taskIndex, subtask, functionName, index) {
+  return /*html*/ `
+    &lt;label onchange="${functionName}(${taskIndex}, ${index})">&lt;input id="overlayCheckbox${index}" checked  type="checkbox"> ${subtask.name}&lt;/label>
+  `;
+}
+
+/**
+ * Returns an HTML template for creating a new category.
+ * @returns {string} An HTML template for the new category input form.
+ */
+function getCreateNewCategoryHTML() {
+  return /*html*/ `
+      &lt;input placeholder="New category name" class="input-new-category" id="category-input" onclick="noClose(event)" type="text"/>
+      &lt;div class="add-category-img-box">
+        &lt;img onclick="clearInput('category-input')" class="subtask-img" src="../assets/img/cancel-icon.svg" alt=""/>
+      &lt;div class="seperator-small">&lt;/div>
+        &lt;img onclick="addNewCategory()" class="subtask-img" src="../assets/img/checkmark-icon-black.svg" alt=""/>
+      &lt;/div>
+  `;
+}
+
+/**
+ * Returns an HTML representation of a color for the color picker.
+ * @param {string} color - The color code.
+ * @param {number} index - The index of the color in the categoryColors array.
+ * @returns {string} An HTML representation of the color.
+ */
+function getColorHTML(color, index) {
+  return /*html*/ `
+     &lt;div id="color${index}" onclick="selectColor('${color}', 'color${index}')" class="color-picker-color" style="background-color: ${color}">&lt;/div>
+  `;
+}
+
+/**
+ * Generates HTML for a given subtask.
+ * @param {Object} subtask - The subtask object.
+ * @param {number} i - Index of the subtask.
+ * @param {Object} [task=null] - The task object, if available.
+ * @param {string} targetDivId - The ID of the target container.
+ * @returns {string} - Returns the generated HTML string.
+ */
+function getSubtaskHTML(subtask, i, task = null, targetDivId) {
+  let subtaskName = task ? subtask.name : subtask.name;
+  return /*html*/ `
+    &lt;div class="subtasks-content">
+      &lt;span>
+        - ${subtaskName}
+      &lt;/span>
+      &lt;img onclick="deleteSubtask(${i},'${targetDivId}')" class="subtask-img" src="../assets/img/delete.svg" alt="" />
+    &lt;/div> 
+    `;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#STORAGE_TOKEN">STORAGE_TOKEN</a></li><li><a href="global.html#STORAGE_URL">STORAGE_URL</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addContactModal">addContactModal</a></li><li><a href="global.html#addNewCategory">addNewCategory</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskModal">addTaskModal</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#appendAssignedContact">appendAssignedContact</a></li><li><a href="global.html#appendAssignedContactHTML">appendAssignedContactHTML</a></li><li><a href="global.html#appendContact">appendContact</a></li><li><a href="global.html#appendSeparator">appendSeparator</a></li><li><a href="global.html#awaitingFeedbackTasks">awaitingFeedbackTasks</a></li><li><a href="global.html#buildTaskObject">buildTaskObject</a></li><li><a href="global.html#button">button</a></li><li><a href="global.html#capitalizeFirstLetter">capitalizeFirstLetter</a></li><li><a href="global.html#categories">categories</a></li><li><a href="global.html#categoryColors">categoryColors</a></li><li><a href="global.html#changeStatusMobile">changeStatusMobile</a></li><li><a href="global.html#changeZindex">changeZindex</a></li><li><a href="global.html#clearAll">clearAll</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closeTab">closeTab</a></li><li><a href="global.html#confirm">confirm</a></li><li><a href="global.html#contacts">contacts</a></li><li><a href="global.html#createAcronym">createAcronym</a></li><li><a href="global.html#createCategoryDiv">createCategoryDiv</a></li><li><a href="global.html#createGreetingPhrase">createGreetingPhrase</a></li><li><a href="global.html#createNameCircle">createNameCircle</a></li><li><a href="global.html#createNameGreating">createNameGreating</a></li><li><a href="global.html#createNewCategory">createNewCategory</a></li><li><a href="global.html#currentContactHTML">currentContactHTML</a></li><li><a href="global.html#currentDraggedElement">currentDraggedElement</a></li><li><a href="global.html#currentPriority">currentPriority</a></li><li><a href="global.html#currentSubtasks">currentSubtasks</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#deleteAllTasks">deleteAllTasks</a></li><li><a href="global.html#deleteCategoryByName">deleteCategoryByName</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#displayCategoryError">displayCategoryError</a></li><li><a href="global.html#doneTasks">doneTasks</a></li><li><a href="global.html#editContactModal">editContactModal</a></li><li><a href="global.html#editContactModalHTML">editContactModalHTML</a></li><li><a href="global.html#editTaskModal">editTaskModal</a></li><li><a href="global.html#editTaskModalHTML">editTaskModalHTML</a></li><li><a href="global.html#editedPriority">editedPriority</a></li><li><a href="global.html#email">email</a></li><li><a href="global.html#fadeGreeting">fadeGreeting</a></li><li><a href="global.html#form">form</a></li><li><a href="global.html#foundTasks">foundTasks</a></li><li><a href="global.html#generateToDoHTML">generateToDoHTML</a></li><li><a href="global.html#generateToDoModalHTML">generateToDoModalHTML</a></li><li><a href="global.html#getCategoriesFromLocalStorage">getCategoriesFromLocalStorage</a></li><li><a href="global.html#getCategory">getCategory</a></li><li><a href="global.html#getColorHTML">getColorHTML</a></li><li><a href="global.html#getColorPicker">getColorPicker</a></li><li><a href="global.html#getCompletedSubtasks">getCompletedSubtasks</a></li><li><a href="global.html#getCreateNewCategoryHTML">getCreateNewCategoryHTML</a></li><li><a href="global.html#getDeadline">getDeadline</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getProgressBarHTML">getProgressBarHTML</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSelectedContacts">getSelectedContacts</a></li><li><a href="global.html#getSubtaskClosedHTML">getSubtaskClosedHTML</a></li><li><a href="global.html#getSubtaskHTML">getSubtaskHTML</a></li><li><a href="global.html#getSubtaskOpenHTML">getSubtaskOpenHTML</a></li><li><a href="global.html#getSubtaskPercent">getSubtaskPercent</a></li><li><a href="global.html#greetingSummary">greetingSummary</a></li><li><a href="global.html#inProgressTasks">inProgressTasks</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initTask">initTask</a></li><li><a href="global.html#initTemplate">initTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadSummary">loadSummary</a></li><li><a href="global.html#loadSummaryContent">loadSummaryContent</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadTasksForSummary">loadTasksForSummary</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#noClose">noClose</a></li><li><a href="global.html#openBoard">openBoard</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#overlay">overlay</a></li><li><a href="global.html#password">password</a></li><li><a href="global.html#popInUserFeedbackMessage">popInUserFeedbackMessage</a></li><li><a href="global.html#popOutUserFeedbackMessage">popOutUserFeedbackMessage</a></li><li><a href="global.html#postTaskActions">postTaskActions</a></li><li><a href="global.html#renderAssignedContacts">renderAssignedContacts</a></li><li><a href="global.html#renderContactCard">renderContactCard</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderFilteredTasks">renderFilteredTasks</a></li><li><a href="global.html#renderSubtaskProgressBar">renderSubtaskProgressBar</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderSubtasksInOverlay">renderSubtasksInOverlay</a></li><li><a href="global.html#renderSubtasksOverlay">renderSubtasksOverlay</a></li><li><a href="global.html#renderToDoCard">renderToDoCard</a></li><li><a href="global.html#renderToDoModalCard">renderToDoModalCard</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetPrioAndDropdown">resetPrioAndDropdown</a></li><li><a href="global.html#resetPriorityBoxes">resetPriorityBoxes</a></li><li><a href="global.html#saveCategoriesToLocalStorage">saveCategoriesToLocalStorage</a></li><li><a href="global.html#saveColumn">saveColumn</a></li><li><a href="global.html#saveEditedTask">saveEditedTask</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectColor">selectColor</a></li><li><a href="global.html#selectedColor">selectedColor</a></li><li><a href="global.html#selectedPrio">selectedPrio</a></li><li><a href="global.html#sendMail">sendMail</a></li><li><a href="global.html#setEditPrio">setEditPrio</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setMinDate">setMinDate</a></li><li><a href="global.html#setPrio">setPrio</a></li><li><a href="global.html#showCategory">showCategory</a></li><li><a href="global.html#showMobileCategory">showMobileCategory</a></li><li><a href="global.html#showUserFeedbackMessage">showUserFeedbackMessage</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#sortContactsByName">sortContactsByName</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#storedCategories">storedCategories</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#tasksInBoard">tasksInBoard</a></li><li><a href="global.html#toDoTasks">toDoTasks</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleDropdownContacts">toggleDropdownContacts</a></li><li><a href="global.html#toggleDropdownEditContacts">toggleDropdownEditContacts</a></li><li><a href="global.html#togglePopupBar">togglePopupBar</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSubtaskInOverlay">updateSubtaskInOverlay</a></li><li><a href="global.html#updateTaskDetails">updateTaskDetails</a></li><li><a href="global.html#uploadTasks">uploadTasks</a></li><li><a href="global.html#urgentTasks">urgentTasks</a></li><li><a href="global.html#username">username</a></li><li><a href="global.html#users">users</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 14 2023 14:37:39 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

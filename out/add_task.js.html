@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: add_task.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: add_task.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * List of tasks.
+ * @type {Array}
+ */
+let tasks = [];
+
+/**
+ * Retrieves stored categories from local storage.
+ * @type {Array}
+ */
+const storedCategories = getCategoriesFromLocalStorage();
+
+/**
+ * Array of categories. Falls back to default categories if none are stored.
+ * @type {Array}
+ */
+let categories =
+  storedCategories.length > 0
+    ? storedCategories
+    : [
+        {name: 'IT', color: '#008ddc'},
+        {name: 'Design', color: '#ff7827'},
+        {name: 'Sales', color: '#a900f8'},
+        {name: 'Backoffice', color: '#502787'},
+        {name: 'Media', color: '#00d345'},
+        {name: 'Marketing', color: '#bb051d'},
+      ];
+
+/**
+ * Array of category colors.
+ * @type {Array}
+ */
+let categoryColors = ['#8AA4FF', '#F00', '#2AD300', '#FF8A00', '#E200BE', '#0038FF'];
+
+/**
+ * Currently selected color.
+ * @type {String|null}
+ */
+let selectedColor;
+
+/**
+ * Current priority.
+ * @type {Number|null}
+ */
+let currentPriority = null;
+
+/**
+ * Selected priority.
+ * @type {Number|null}
+ */
+let selectedPrio = null;
+
+/**
+ * List of current subtasks.
+ * @type {Array}
+ */
+let currentSubtasks = [];
+
+/**
+ * Initializes tasks, loads categories, tasks, and contacts.
+ * @async
+ * @function
+ * @returns {Promise&lt;void>}
+ */
+async function initTask() {
+  checkLogIn();
+  await initTemplate('addTask');
+  getCategory();
+  await loadTasks();
+  await loadContacts();
+}
+
+/**
+ * Loads tasks from storage and parses them into the tasks array.
+ * @async
+ * @function
+ * @returns {Promise&lt;void>}
+ */
+async function loadTasks() {
+  try {
+    let storedTasks = await getItem('tasks');
+    if (storedTasks) {
+      tasks = JSON.parse(storedTasks);
+      console.log('Geladene Tasks:', tasks);
+    }
+  } catch (error) {
+    console.error('Could not load tasks:', error);
+  }
+}
+
+/**
+ * Loads contacts from storage.
+ * @async
+ * @function
+ * @returns {Promise&lt;void>}
+ */
+async function loadContacts() {
+  try {
+    let storedContacts = await getItem('contacts');
+    if (storedContacts) {
+      contacts = JSON.parse(storedContacts);
+    }
+  } catch (error) {
+    console.error('Could not load contacts:', error);
+  }
+  renderAssignedContacts('dropdownContentContacts');
+}
+
+/**
+ * Renders the assigned contacts for a task.
+ * @function
+ * @param {string} targetDivId - The ID of the target div where the contacts will be rendered.
+ * @param {Object|null} task - The task object (optional).
+ */
+function renderAssignedContacts(targetDivId, task = null) {
+  let contactsList = document.getElementById(targetDivId);
+  if (!contactsList) {
+    console.error(`Element with ID ${targetDivId} not found.`);
+    return;
+  }
+  contactsList.innerHTML = '';
+  let sortedContacts = sortContactsByName();
+
+  for (let index = 0; index &lt; sortedContacts.length; index++) {
+    let contact = sortedContacts[index];
+    contactsList.style.display = 'none';
+    appendAssignedContact(contactsList, contact, index, task);
+  }
+}
+
+/**
+ * Appends a single assigned contact to the contacts list.
+ * @function
+ * @param {HTMLElement} contactsList - The DOM element of the contacts list.
+ * @param {Object} contact - The contact object.
+ * @param {number} index - The index of the contact in the contacts array.
+ * @param {Object|null} task - The task object (optional).
+ */
+function appendAssignedContact(contactsList, contact, index, task = null) {
+  let initials = getInitials(contact.name);
+  let isChecked = '';
+  if (task) {
+    for (let assignedContact of task.contacts) {
+      if (assignedContact.name === contact.name &amp;&amp; assignedContact.email === contact.email) {
+        isChecked = 'checked';
+        break;
+      }
+    }
+  }
+  let contactContainer = document.createElement('div');
+  contactContainer.innerHTML = appendAssignedContactHTML(contact, initials, index, isChecked);
+  contactContainer.onclick = function (event) {
+    event.stopPropagation();
+  };
+  contactsList.appendChild(contactContainer);
+}
+
+/**
+ * Retrieves the list of selected contacts from the UI.
+ * @function
+ * @returns {Array} Array of selected contacts.
+ */
+function getSelectedContacts() {
+  let checkboxes = document.querySelectorAll('.assigned-checkbox:checked');
+  let selectedContacts = [];
+  checkboxes.forEach(checkbox => {
+    let contactIndex = checkbox.getAttribute('value');
+    selectedContacts.push(contacts[contactIndex]);
+  });
+  return selectedContacts;
+}
+
+/**
+ * Toggles the display of the contacts dropdown.
+ * @function
+ */
+function toggleDropdownContacts() {
+  let contactsList = document.getElementById('dropdownContentContacts');
+  if (contactsList.style.display === 'none' || contactsList.style.display === '') {
+    contactsList.style.display = 'block';
+  } else {
+    contactsList.style.display = 'none';
+  }
+}
+
+/**
+ * Fetches the dropdown content element, clears its content, and populates it with available categories.
+ */
+function getCategory() {
+  let dropdownContent = document.getElementById('dropdownContent');
+  dropdownContent.innerHTML = '';
+
+  if (!dropdownContent) {
+    console.error("Element 'dropdownContent' existiert nicht im DOM.");
+  }
+
+  dropdownContent.style.display = 'none';
+
+  for (let i = 0; i &lt; categories.length; i++) {
+    let category = categories[i];
+    let categoryDiv = createCategoryDiv(category);
+    dropdownContent.appendChild(categoryDiv);
+  }
+}
+
+/**
+ * Creates a category div element containing the name and color representation of the given category.
+ * @param {Object} category - An object containing category details.
+ * @returns {HTMLElement} A div element representing the category.
+ */
+function createCategoryDiv(category) {
+  let categoryDiv = document.createElement('div');
+  let circle = document.createElement('span');
+  circle.style.backgroundColor = category.color;
+  circle.className = 'circle';
+
+  categoryDiv.appendChild(document.createTextNode(category.name));
+  categoryDiv.appendChild(circle);
+
+  categoryDiv.onclick = function (event) {
+    event.stopPropagation();
+    selectCategory(category.name, category.color);
+  };
+
+  return categoryDiv;
+}
+
+/**
+ * Updates the UI with the selected category's name and hides other related dropdown elements.
+ * @param {string} name - The name of the category.
+ * @param {string} color - The color code associated with the category.
+ */
+function selectCategory(name, color) {
+  document.getElementById('selectedCategory').innerHTML = name;
+  document.getElementById('dropdownContent').style.display = 'none';
+  document.getElementById('addNewCategory').style.display = 'none';
+  document.getElementById('selectedCategory').classList.remove('d-none');
+
+  let existingCircle = document.querySelector('.dropdown .selected-circle');
+  if (existingCircle) existingCircle.remove();
+
+  let selectedCircle = document.createElement('span');
+  selectedCircle.className = 'circle selected-circle';
+  selectedCircle.style.backgroundColor = color;
+  document.querySelector('.dropdown').appendChild(selectedCircle);
+}
+
+/**
+ * Initializes the UI for creating a new category.
+ */
+function createNewCategory() {
+  const categoryBox = document.getElementById('addNewCategory');
+  categoryBox.removeAttribute('onclick');
+
+  categoryBox.innerHTML = getCreateNewCategoryHTML();
+  getColorPicker();
+  toggleDropdown();
+  document.getElementById('dropdownContent').classList.add('d-none');
+  document.getElementById('selectedCategory').classList.add('d-none');
+}
+
+/**
+ * Creates a new category based on the entered name and selected color, then updates the local storage and UI.
+ */
+function addNewCategory() {
+  if (!selectedColor) {
+    document.getElementById('errorTagCategory').classList.remove('d-none');
+    return;
+  }
+  const newCategory = {
+    name: document.getElementById('category-input').value,
+    color: selectedColor,
+  };
+  categories.push(newCategory);
+  saveCategoriesToLocalStorage();
+  document.getElementById('dropdownContent').classList.remove('d-none');
+  document.getElementById('color-picker-box').style.display = 'none';
+  document.getElementById('addNewCategory').style.display = 'none';
+
+  getCategory();
+  showUserFeedbackMessage('Category successfully created');
+  toggleDropdown();
+  document.getElementById('errorTagCategory').classList.add('d-none');
+}
+
+/**
+ * Saves the current categories list to local storage.
+ */
+function saveCategoriesToLocalStorage() {
+  localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+/**
+ * Fetches and returns the list of categories from local storage.
+ * @returns {Array} An array of stored categories or an empty array if none found.
+ */
+function getCategoriesFromLocalStorage() {
+  const storedCategories = localStorage.getItem('categories');
+  if (storedCategories) {
+    return JSON.parse(storedCategories);
+  }
+  return [];
+}
+
+/**
+ * Deletes a category from the list based on its name and updates local storage.
+ * @param {string} categoryName - The name of the category to be deleted.
+ */
+function deleteCategoryByName(categoryName) {
+  const index = categories.findIndex(category => category.name === categoryName);
+
+  if (index !== -1) {
+    categories.splice(index, 1);
+    saveCategoriesToLocalStorage();
+  } else {
+    console.log(`Category "${categoryName}" not found.`);
+  }
+}
+
+/**
+ * Populates the color picker box with predefined category colors.
+ */
+function getColorPicker() {
+  const colorBox = document.getElementById('color-picker-box');
+  colorBox.classList.remove('d-none');
+  colorBox.innerHTML = '';
+
+  categoryColors.forEach((color, index) => {
+    colorBox.innerHTML += getColorHTML(color, index);
+  });
+}
+
+/**
+ * Marks a color as selected in the color picker and stores the selection.
+ * @param {string} color - The color code of the selected color.
+ * @param {string} id - The id of the selected color div.
+ */
+function selectColor(color, id) {
+  const colrPickerBox = document.getElementById('color-picker-box');
+  const colorBoxes = colrPickerBox.querySelectorAll('div');
+  selectedColor = color;
+
+  colorBoxes.forEach(colorBox => {
+    colorBox.classList.remove('active-color');
+  });
+
+  const selectedColorBox = document.getElementById(id);
+  selectedColorBox.classList.add('active-color');
+}
+
+/**
+ * Toggles the visibility of the category dropdown and associated elements.
+ */
+function toggleDropdown() {
+  let dropdownContent = document.getElementById('dropdownContent');
+  if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
+    dropdownContent.style.display = 'block';
+    document.getElementById('selectedCategory').classList.add('d-none');
+    document.getElementById('addNewCategory').classList.remove('d-none');
+  } else {
+    dropdownContent.style.display = 'none';
+    document.getElementById('addNewCategory').classList.add('d-none');
+    document.getElementById('selectedCategory').classList.remove('d-none');
+  }
+}
+
+/**
+ * Sets the selected priority and updates the UI accordingly.
+ * @param {string} prioType - The chosen priority ('urgent', 'medium', or 'low').
+ */
+function setPrio(prioType) {
+  const boxes = ['urgent-prio-box', 'medium-prio-box', 'low-prio-box'];
+  boxes.forEach(boxId => {
+    const box = document.getElementById(boxId);
+    box.classList.remove('urgent', 'medium', 'low');
+    const whiteIcon = box.querySelector('.white-icon');
+    whiteIcon.classList.add('d-none');
+    const coloredIcon = box.querySelector(':nth-child(2)');
+    coloredIcon.classList.remove('d-none');
+  });
+  const currentBox = document.getElementById(`${prioType}-prio-box`);
+  currentBox.classList.add(prioType);
+  const whiteIcon = currentBox.querySelector('.white-icon');
+  whiteIcon.classList.remove('d-none');
+  const coloredIcon = currentBox.querySelector(':nth-child(2)');
+  coloredIcon.classList.add('d-none');
+  currentPriority = prioType;
+}
+
+/**
+ * Asynchronously creates and stores a new task.
+ */
+async function addTask() {
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+  const selectedCategory = document.getElementById('selectedCategory').textContent.trim();
+
+  if (selectedCategory === 'Select task category') {
+    displayCategoryError();
+    return;
+  }
+
+  const task = buildTaskObject(title, description, selectedCategory);
+
+  await saveTask(task);
+
+  postTaskActions();
+}
+
+/**
+ * Displays an error if no category has been chosen.
+ */
+function displayCategoryError() {
+  const errorMsgDiv = document.getElementById('errorTagCategory');
+  errorMsgDiv.classList.remove('d-none');
+  setTimeout(() => {
+    errorMsgDiv.classList.add('d-none');
+  }, 3000);
+}
+
+/**
+ * Constructs a task object based on provided details.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} selectedCategory - Chosen category for the task.
+ * @returns {Object} - Returns the task object.
+ */
+function buildTaskObject(title, description, selectedCategory) {
+  const selectedContacts = getSelectedContacts();
+  const dueDate = document.getElementById('due-date').value;
+  const modalElement = document.getElementById('addTaskInModal');
+  const taskStatus = modalElement ? modalElement.getAttribute('data-status') : 'toDo';
+
+  return {
+    title,
+    description,
+    category: selectedCategory,
+    contacts: selectedContacts,
+    dueDate,
+    priority: currentPriority,
+    subtasks: [...currentSubtasks],
+    status: taskStatus,
+  };
+}
+
+/**
+ * Asynchronously saves the task.
+ * @param {Object} task - The task object to be stored.
+ */
+async function saveTask(task) {
+  tasks.push(task);
+  try {
+    await setItem('tasks', JSON.stringify(tasks));
+    console.log('Task erfolgreich gespeichert!');
+    setTimeout(() => {
+      window.location.href = 'board.html';
+    }, 1000);
+  } catch (error) {
+    console.error('Fehler beim Speichern des Tasks:', error);
+  }
+}
+
+/**
+ * Clears all fields and gives feedback once a task is created.
+ */
+function postTaskActions() {
+  clearAll();
+  renderToDoCard('subtask-box');
+  showUserFeedbackMessage('Task successfully created');
+  addTaskModal();
+}
+
+/**
+ * Sets the minimum date attribute to today's date.
+ */
+function setMinDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementsByName('due-date')[0].setAttribute('min', today);
+}
+
+/**
+ * Clears the content of a given input element.
+ * @param {string} id - The ID of the input element to be cleared.
+ */
+function clearInput(id) {
+  let inputField = document.getElementById(id);
+  inputField.value = '';
+}
+
+/**
+ * Renders subtasks to a specific container.
+ * @param {string} targetDivId - The ID of the container where the subtasks are to be rendered.
+ * @param {Object} [task=null] - The task object, if available.
+ */
+function renderSubtasks(targetDivId, task = null) {
+  const container = document.getElementById(targetDivId);
+
+  if (!container) {
+    console.error(`Element mit ID ${targetDivId} nicht gefunden.`);
+    return;
+  }
+  container.innerHTML = '';
+  for (let i = 0; i &lt; currentSubtasks.length; i++) {
+    const subtask = currentSubtasks[i];
+    container.innerHTML += getSubtaskHTML(subtask, i, task, targetDivId);
+  }
+}
+
+/**
+ * Adds a subtask to the list and renders it.
+ * @param {string} targetDivId - The ID of the target container.
+ */
+function addSubtask(targetDivId) {
+  const input = targetDivId == 'subtask-edit-box' ? document.getElementById('subtask-input-edit') : document.getElementById('subtask-input');
+  if (input.value.length > 0) {
+    const subtask = {
+      name: input.value,
+      status: 'open',
+    };
+    currentSubtasks.push(subtask);
+    renderSubtasks(targetDivId);
+    clearInput(input.id);
+  }
+}
+
+/**
+ * Removes a subtask from the list and re-renders the remaining ones.
+ * @param {number} i - Index of the subtask to be removed.
+ * @param {string} targetDivId - The ID of the target container.
+ */
+function deleteSubtask(i, targetDivId) {
+  currentSubtasks.splice(i, 1);
+  renderSubtasks(targetDivId);
+}
+
+/**
+ * Clears all input fields and resets the UI.
+ */
+function clearAll() {
+  document.getElementById('title').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('selectedCategory').innerHTML = 'Select task category';
+  document.getElementById('due-date').value = '';
+  currentSubtasks = [];
+  renderSubtasks('subtask-box');
+  let existingCircle = document.querySelector('.dropdown .selected-circle');
+  if (existingCircle) existingCircle.remove();
+  resetPrioAndDropdown();
+}
+
+/**
+ * Resets the priority selections and dropdown checkboxes to default states.
+ */
+function resetPrioAndDropdown() {
+  const boxes = ['urgent-prio-box', 'medium-prio-box', 'low-prio-box'];
+  boxes.forEach(boxId => {
+    const box = document.getElementById(boxId);
+    box.classList.remove('urgent', 'medium', 'low');
+    const whiteIcon = box.querySelector('.white-icon');
+    whiteIcon.classList.add('d-none');
+    const coloredIcon = box.querySelector(':nth-child(2)');
+    coloredIcon.classList.remove('d-none');
+  });
+  const checkboxes = document.querySelectorAll('#dropdownContentContacts input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  const dropdown = document.getElementById('dropdownContentContacts');
+  if (dropdown) {
+    dropdown.style.display = 'none';
+  }
+}
+
+/**
+ * Asynchronously deletes all stored tasks.
+ */
+async function deleteAllTasks() {
+  tasks = [];
+  try {
+    await setItem('tasks', JSON.stringify(tasks));
+    console.log('Alle Tasks erfolgreich gelöscht!');
+  } catch (error) {
+    console.error('Fehler beim Löschen aller Tasks:', error);
+  }
+}
+
+/**
+ * Toggles the visibility of the 'Add Task' modal.
+ * @param {string} [status='toDo'] - The status of the task being added.
+ */
+function addTaskModal(status = 'toDo') {
+  let parent = document.getElementById('addTaskModal');
+  let child = document.getElementById('addTaskInModal');
+
+  parent.classList.toggle('modal-bg-animation');
+  child.classList.toggle('modal-animation');
+  clearAll();
+  clearInput('subtask-input');
+  child.setAttribute('data-status', status);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#STORAGE_TOKEN">STORAGE_TOKEN</a></li><li><a href="global.html#STORAGE_URL">STORAGE_URL</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addContactModal">addContactModal</a></li><li><a href="global.html#addNewCategory">addNewCategory</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskModal">addTaskModal</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#appendAssignedContact">appendAssignedContact</a></li><li><a href="global.html#appendAssignedContactHTML">appendAssignedContactHTML</a></li><li><a href="global.html#appendContact">appendContact</a></li><li><a href="global.html#appendSeparator">appendSeparator</a></li><li><a href="global.html#awaitingFeedbackTasks">awaitingFeedbackTasks</a></li><li><a href="global.html#buildTaskObject">buildTaskObject</a></li><li><a href="global.html#button">button</a></li><li><a href="global.html#capitalizeFirstLetter">capitalizeFirstLetter</a></li><li><a href="global.html#categories">categories</a></li><li><a href="global.html#categoryColors">categoryColors</a></li><li><a href="global.html#changeStatusMobile">changeStatusMobile</a></li><li><a href="global.html#changeZindex">changeZindex</a></li><li><a href="global.html#clearAll">clearAll</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closeTab">closeTab</a></li><li><a href="global.html#confirm">confirm</a></li><li><a href="global.html#contacts">contacts</a></li><li><a href="global.html#createAcronym">createAcronym</a></li><li><a href="global.html#createCategoryDiv">createCategoryDiv</a></li><li><a href="global.html#createGreetingPhrase">createGreetingPhrase</a></li><li><a href="global.html#createNameCircle">createNameCircle</a></li><li><a href="global.html#createNameGreating">createNameGreating</a></li><li><a href="global.html#createNewCategory">createNewCategory</a></li><li><a href="global.html#currentContactHTML">currentContactHTML</a></li><li><a href="global.html#currentDraggedElement">currentDraggedElement</a></li><li><a href="global.html#currentPriority">currentPriority</a></li><li><a href="global.html#currentSubtasks">currentSubtasks</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#deleteAllTasks">deleteAllTasks</a></li><li><a href="global.html#deleteCategoryByName">deleteCategoryByName</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#displayCategoryError">displayCategoryError</a></li><li><a href="global.html#doneTasks">doneTasks</a></li><li><a href="global.html#editContactModal">editContactModal</a></li><li><a href="global.html#editContactModalHTML">editContactModalHTML</a></li><li><a href="global.html#editTaskModal">editTaskModal</a></li><li><a href="global.html#editTaskModalHTML">editTaskModalHTML</a></li><li><a href="global.html#editedPriority">editedPriority</a></li><li><a href="global.html#email">email</a></li><li><a href="global.html#fadeGreeting">fadeGreeting</a></li><li><a href="global.html#form">form</a></li><li><a href="global.html#foundTasks">foundTasks</a></li><li><a href="global.html#generateToDoHTML">generateToDoHTML</a></li><li><a href="global.html#generateToDoModalHTML">generateToDoModalHTML</a></li><li><a href="global.html#getCategoriesFromLocalStorage">getCategoriesFromLocalStorage</a></li><li><a href="global.html#getCategory">getCategory</a></li><li><a href="global.html#getColorHTML">getColorHTML</a></li><li><a href="global.html#getColorPicker">getColorPicker</a></li><li><a href="global.html#getCompletedSubtasks">getCompletedSubtasks</a></li><li><a href="global.html#getCreateNewCategoryHTML">getCreateNewCategoryHTML</a></li><li><a href="global.html#getDeadline">getDeadline</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getProgressBarHTML">getProgressBarHTML</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSelectedContacts">getSelectedContacts</a></li><li><a href="global.html#getSubtaskClosedHTML">getSubtaskClosedHTML</a></li><li><a href="global.html#getSubtaskHTML">getSubtaskHTML</a></li><li><a href="global.html#getSubtaskOpenHTML">getSubtaskOpenHTML</a></li><li><a href="global.html#getSubtaskPercent">getSubtaskPercent</a></li><li><a href="global.html#greetingSummary">greetingSummary</a></li><li><a href="global.html#inProgressTasks">inProgressTasks</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initTask">initTask</a></li><li><a href="global.html#initTemplate">initTemplate</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadSummary">loadSummary</a></li><li><a href="global.html#loadSummaryContent">loadSummaryContent</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadTasksForSummary">loadTasksForSummary</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#noClose">noClose</a></li><li><a href="global.html#openBoard">openBoard</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#overlay">overlay</a></li><li><a href="global.html#password">password</a></li><li><a href="global.html#popInUserFeedbackMessage">popInUserFeedbackMessage</a></li><li><a href="global.html#popOutUserFeedbackMessage">popOutUserFeedbackMessage</a></li><li><a href="global.html#postTaskActions">postTaskActions</a></li><li><a href="global.html#renderAssignedContacts">renderAssignedContacts</a></li><li><a href="global.html#renderContactCard">renderContactCard</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderFilteredTasks">renderFilteredTasks</a></li><li><a href="global.html#renderSubtaskProgressBar">renderSubtaskProgressBar</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderSubtasksInOverlay">renderSubtasksInOverlay</a></li><li><a href="global.html#renderSubtasksOverlay">renderSubtasksOverlay</a></li><li><a href="global.html#renderToDoCard">renderToDoCard</a></li><li><a href="global.html#renderToDoModalCard">renderToDoModalCard</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetPrioAndDropdown">resetPrioAndDropdown</a></li><li><a href="global.html#resetPriorityBoxes">resetPriorityBoxes</a></li><li><a href="global.html#saveCategoriesToLocalStorage">saveCategoriesToLocalStorage</a></li><li><a href="global.html#saveColumn">saveColumn</a></li><li><a href="global.html#saveEditedTask">saveEditedTask</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectColor">selectColor</a></li><li><a href="global.html#selectedColor">selectedColor</a></li><li><a href="global.html#selectedPrio">selectedPrio</a></li><li><a href="global.html#sendMail">sendMail</a></li><li><a href="global.html#setEditPrio">setEditPrio</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setMinDate">setMinDate</a></li><li><a href="global.html#setPrio">setPrio</a></li><li><a href="global.html#showCategory">showCategory</a></li><li><a href="global.html#showMobileCategory">showMobileCategory</a></li><li><a href="global.html#showUserFeedbackMessage">showUserFeedbackMessage</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#sortContactsByName">sortContactsByName</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#storedCategories">storedCategories</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#tasksInBoard">tasksInBoard</a></li><li><a href="global.html#toDoTasks">toDoTasks</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleDropdownContacts">toggleDropdownContacts</a></li><li><a href="global.html#toggleDropdownEditContacts">toggleDropdownEditContacts</a></li><li><a href="global.html#togglePopupBar">togglePopupBar</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateSubtaskInOverlay">updateSubtaskInOverlay</a></li><li><a href="global.html#updateTaskDetails">updateTaskDetails</a></li><li><a href="global.html#uploadTasks">uploadTasks</a></li><li><a href="global.html#urgentTasks">urgentTasks</a></li><li><a href="global.html#username">username</a></li><li><a href="global.html#users">users</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 14 2023 14:37:39 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
