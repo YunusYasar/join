@@ -1,18 +1,67 @@
+/**
+ * List of registered users.
+ * @type {Array<Object>}
+ */
 let users = [];
+
+/**
+ * Input field for the user's name.
+ * @type {HTMLElement}
+ */
 let username = document.getElementById("name");
+
+/**
+ * Input field for the user's email.
+ * @type {HTMLElement}
+ */
 let email = document.getElementById("email");
+
+/**
+ * Input field for confirming the user's password.
+ * @type {HTMLElement}
+ */
 let confirm = document.getElementById("confirmpassword");
+
+/**
+ * Input field for the user's password.
+ * @type {HTMLElement}
+ */
 let password = document.getElementById("password");
+
+/**
+ * Signup button element.
+ * @type {HTMLElement}
+ */
 let signup = document.getElementById("signup");
 
+/**
+ * Reference to the registration form.
+ * @type {HTMLElement}
+ */
 const form = document.getElementById("forgot-form");
+
+/**
+ * Reference to the fly-in button within the form.
+ * @type {HTMLElement}
+ */
 const button = document.querySelector(".fly-in-button");
+
+/**
+ * Reference to the overlay element.
+ * @type {HTMLElement}
+ */
 const overlay = document.querySelector(".overlay");
 
+/**
+ * Creates a delay for a given number of milliseconds.
+ * @param {number} ms - The number of milliseconds to delay.
+ * @returns {Promise<void>} A promise that resolves after the given delay.
+ */
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Event listener to handle form submission and user registration.
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const passwordMatching = await addUser();
@@ -25,6 +74,10 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
+/**
+ * Asynchronously adds a new user based on the provided registration details.
+ * @returns {Promise<boolean>} A promise that resolves to 'true' if the user is successfully added, 'false' otherwise.
+ */
 async function addUser() {
   confirm.classList.remove("border-red");
   error.style = "display: none;";
@@ -50,6 +103,9 @@ async function addUser() {
   }
 }
 
+/**
+ * Resets the registration form fields.
+ */
 function resetForm() {
   username.value = "";
   email.value = "";
