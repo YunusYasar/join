@@ -1,6 +1,7 @@
 /**
- * Initializes the template based on the given category name. Includes HTML, sets up categories, and creates the user's name circle.
- * @param {string} categoryName - The name of the category to initialize.
+ * Initializes the template with the given category and other related functionalities.
+ *
+ * @param {string} categoryName - The name of the category to initialize with.
  */
 async function initTemplate(categoryName) {
   await includeHTML();
@@ -13,8 +14,9 @@ async function initTemplate(categoryName) {
   await createNameCircle();
 }
 
+
 /**
- * Includes external HTML files based on the 'w3-include-html' attribute in the DOM elements.
+ * Asynchronously includes HTML from external files into elements with the 'w3-include-html' attribute.
  */
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -30,29 +32,50 @@ async function includeHTML() {
   }
 }
 
+
 /**
- * Displays the appropriate category based on the given category name for desktop view.
+ * Displays the category based on the given name for desktop view.
+ *
  * @param {string} categoryName - The name of the category to display.
  */
 async function showCategory(categoryName) {
-  var x = document.getElementsByClassName("category");
-  for (i = 0; i < x.length; i++) {
-    x[i].classList.add("d-none");
+  if (categoryName === 'legal_notice' || categoryName === 'privacy_policy') {
+    document.getElementById('sidebar_categories').classList.add('d-none');
+  } else {
+    document.getElementById('sidebar_categories').classList.remove('d-none');
+    let allCategories = document.getElementsByClassName('active_category');
+    if (allCategories.length != 0) {
+      for (let i = 0; i < allCategories.length; i++) {
+        const element = allCategories[i];
+
+        element.classList.remove('active_category');
+      }
+    }
+    let string = 'sidebar_categories_' + categoryName;
+    let addCat = document.getElementById(string);
+    addCat.classList.add('active_category');
   }
-  document.getElementById(categoryName).classList.remove("d-none");
 }
 
+
 /**
- * Displays the appropriate category based on the given category name for mobile view.
+ * Displays the category based on the given name for mobile view.
+ *
  * @param {string} categoryName - The name of the category to display.
  */
 async function showMobileCategory(categoryName) {
-  var x = document.getElementsByClassName("category");
-  for (i = 0; i < x.length; i++) {
-    x[i].classList.add("d-none");
+  let allCategories = document.getElementsByClassName('active_category');
+  if (allCategories.length != 0) {
+    for (let i = 0; i < allCategories.length; i++) {
+      const element = allCategories[i];
+      element.classList.remove('active_category');
+    }
   }
-  document.getElementById(categoryName).classList.remove("d-none");
+  let string = 'mobile_categories_' + categoryName;
+  let addCat = document.getElementById(string);
+  addCat.classList.add('active_category');
 }
+
 
 /**
  * Toggles the visibility of the popup bar.
@@ -62,35 +85,54 @@ function togglePopupBar() {
   popupBar.classList.toggle('d-none');
 }
 
+
 /**
- * Creates a circle with the user's initials and adds it to the top bar.
+ * Asynchronously creates a circle with the user's name acronym.
  */
 async function createNameCircle() {
-  var nameCircle = document.getElementById('nameCircle');
-  var user = await getUser(currentUser);
-  var acronym = createAcronym(user['firstName'], user['lastName']);
-  nameCircle.innerHTML = acronym;
+  await loadUsers();
+  let acronym = createAcronym(currentUser);
+  let topbar = document.getElementById('topbar_icons');
+  let mobiletopbar = document.getElementById('mobile_topbar_icons');
+  topbar.innerHTML += /*html*/ `
+        <div id="topbar_Icons_Username" onclick="togglePopupBar()">${acronym}</div>
+    `;
+  mobiletopbar.innerHTML += /*html*/ `
+     <div id="mobile_topbar_Icons_Username" onclick="togglePopupBar()">${acronym}</div>
+ `;
 }
 
+
 /**
- * Logs out the current user by updating the 'loggedIn' status in the local storage.
+ * Logs out the current user and updates the local storage state.
  */
 function logoutUser() {
-  localStorage.setItem('loggedIn', false);
+  localStorage.setItem(`loggedIn`, false);
 }
 
+
 /**
- * Creates an acronym based on the current user's name.
+ * Creates an acronym from the given user name.
+ *
  * @param {string} currentUser - The name of the current user.
- * @returns {string} The acronym created from the user's name.
+ * @returns {string} The acronym created from the user name.
  */
-function createAcronym(firstName, lastName) {
-  return firstName.charAt(0) + lastName.charAt(0);
+function createAcronym(currentUser) {
+  let acronym;
+  let matches = currentUser.match(/^(\w+)|(\w+)\W*$/g);
+  if (matches.length == 2) {
+    acronym = matches[0].charAt(0) + matches[1].charAt(0);
+  } else {
+    acronym = matches[0].charAt(0);
+  }
+  return acronym;
 }
 
+
 /**
- * Saves the clicked column to the local storage.
- * @param {string} clickColumn - The column that was clicked.
+ * Saves the clicked column's information to the local storage.
+ *
+ * @param {string} clickColumn - The identifier of the clicked column.
  */
 function saveColumn(clickColumn) {
   column = localStorage.setItem('column', clickColumn);

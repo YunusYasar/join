@@ -1,31 +1,33 @@
 /**
- * The token used for authentication with the remote storage.
- * @const {string}
+ * The storage token used for authentication with the remote storage service.
  */
 const STORAGE_TOKEN = 'T8IB87MOO0BRJLZ0W0I4O7DAUN6QZYEBWX8ZNG9M';
 
+
 /**
- * The URL endpoint for the remote storage service.
- * @const {string}
+ * The base URL for the remote storage service.
  */
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
+
 /**
- * Asynchronously sets an item in the remote storage.
- * @param {string} key - The key under which the item should be stored.
+ * Asynchronously stores a value under a given key in the remote storage.
+ *
+ * @param {string} key - The key under which the value will be stored.
  * @param {string} value - The value to be stored.
- * @returns {Promise<Object>} A promise that resolves to the response from the storage service.
+ * @returns {Promise<Object>} A promise that resolves to the server's response.
  */
 async function setItem(key, value) {
   const payload = {key, value, token: STORAGE_TOKEN};
   return fetch(STORAGE_URL, {method: 'POST', body: JSON.stringify(payload)}).then(res => res.json());
 }
 
+
 /**
- * Asynchronously retrieves an item from the remote storage.
- * @param {string} key - The key under which the item is stored.
- * @returns {Promise<string>} A promise that resolves to the retrieved value.
- * @throws Will throw an error if the item with the specified key is not found.
+ * Asynchronously retrieves a value stored under a given key from the remote storage.
+ *
+ * @param {string} key - The key for which the value will be retrieved.
+ * @returns {Promise<string>} A promise that resolves to the retrieved value or rejects if the key is not found.
  */
 async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;

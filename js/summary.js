@@ -1,5 +1,5 @@
 /**
- * Loads the summary content, checks login status, and initializes greetings.
+ * Asynchronously loads the summary content for the dashboard.
  */
 async function loadSummary() {
   checkLogIn();
@@ -8,17 +8,19 @@ async function loadSummary() {
   loadSummaryContent();
 }
 
+
 /**
- * Initializes the greeting for the summary.
+ * Sets up the greeting message based on the current time.
  */
 function greetingSummary() {
   setTimeout(createGreetingPhrase, 300);
-  setTimeout(createNameGreating,150);
+   setTimeout(createNameGreating,150);
   fadeGreeting();
 }
 
+
 /**
- * Creates the appropriate greeting based on the current time.
+ * Creates a greeting phrase based on the current time of day.
  */
 function createGreetingPhrase() {
   let timeNow = new Date().getHours();
@@ -35,8 +37,9 @@ function createGreetingPhrase() {
     `;
 }
 
+
 /**
- * Sets the user's name in the greeting if the user is not a guest.
+ * Asynchronously creates a greeting with the user's name.
  */
 async function createNameGreating() {
   await loadUsers();
@@ -49,8 +52,9 @@ async function createNameGreating() {
   }
 }
 
+
 /**
- * Fades out the greeting if the window width is less than 1200 pixels.
+ * Fades out the greeting after a certain duration.
  */
 function fadeGreeting() {
   if (window.innerWidth < 1200) {
@@ -72,8 +76,9 @@ function fadeGreeting() {
   }
 }
 
+
 /**
- * Redirects to the board page.
+ * Navigates to the board page.
  */
 function openBoard() {
   window.location.href = 'board.html';
@@ -81,16 +86,18 @@ function openBoard() {
 
 /////////////////////
 
+
 /**
- * Loads tasks for the summary from storage.
+ * Asynchronously loads the list of tasks for the summary page.
  */
 async function loadTasksForSummary() {
   tasks = JSON.parse(await getItem('tasks'));
   loadSummaryContent();
 }
 
+
 /**
- * Loads content for the summary based on the tasks.
+ * Populates the summary page with content based on the loaded tasks.
  */
 function loadSummaryContent() {
   if (tasks.length > 0) {
@@ -104,8 +111,9 @@ function loadSummaryContent() {
   }
 }
 
+
 /**
- * Displays the total number of tasks in the board.
+ * Displays the total number of tasks on the board.
  */
 function tasksInBoard() {
   document.getElementById('in-board').innerHTML = '';
@@ -113,6 +121,7 @@ function tasksInBoard() {
           ${tasks.length}
       `;
 }
+
 
 /**
  * Displays the number of tasks that are in progress.
@@ -125,8 +134,9 @@ function inProgressTasks() {
       `;
 }
 
+
 /**
- * Displays the number of tasks awaiting feedback.
+ * Displays the number of tasks that are awaiting feedback.
  */
 function awaitingFeedbackTasks() {
   let awaitingFeedback = tasks.filter(t => t['status'] == 'awaitingFeedback');
@@ -136,8 +146,9 @@ function awaitingFeedbackTasks() {
       `;
 }
 
+
 /**
- * Displays the number of urgent tasks.
+ * Displays the number of tasks that are marked as urgent.
  */
 function urgentTasks() {
   let urgent = tasks.filter(t => t['priority'] == 'urgent');
@@ -147,26 +158,26 @@ function urgentTasks() {
       `;
 }
 
+
 /**
- * Displays the nearest deadline among all tasks.
+ * Determines and displays the nearest upcoming task deadline.
  */
 function getDeadline() {
   document.getElementById('upcoming-deadline').innerHTML = '';
   let earliestDate = tasks[0].dueDate;
-
   for (let i = 1; i < tasks.length; i++) {
     if (tasks[i].dueDate < earliestDate) {
       earliestDate = tasks[i].dueDate;
     }
   }
-
   document.getElementById('upcoming-deadline').innerHTML += `
           ${earliestDate}
     `;
 }
 
+
 /**
- * Displays the number of tasks that are yet to be started.
+ * Displays the number of tasks that are to-do.
  */
 function toDoTasks() {
   let toDo = tasks.filter(t => t['status'] == 'toDo');
@@ -176,8 +187,9 @@ function toDoTasks() {
       `;
 }
 
+
 /**
- * Displays the number of tasks that have been completed.
+ * Displays the number of tasks that are done.
  */
 function doneTasks() {
   let done = tasks.filter(t => t['status'] == 'done');

@@ -4,17 +4,20 @@
  */
 const form = document.getElementById("forgot-form");
 
+
 /**
  * Reference to the fly-in button within the form.
  * @type {HTMLElement}
  */
 const button = document.querySelector(".fly-in-button");
 
+
 /**
  * Reference to the overlay element.
  * @type {HTMLElement}
  */
 const overlay = document.querySelector(".overlay");
+
 
 /**
  * Creates a delay for a given number of milliseconds.
@@ -25,7 +28,9 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Event listener to handle form submission.
+/**
+ * Event listener to handle form submission.
+ */
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const emailMatching = await sendMail();
@@ -36,6 +41,7 @@ form.addEventListener("submit", async (event) => {
     form.submit();
   }
 });
+
 
 /**
  * Sends an email for password reset. Also handles email validation.
