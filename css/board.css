@@ -517,9 +517,10 @@ input::placeholder {
   /* padding: 20px; */
 }
 .edit-submit-task-button {
-  position: absolute;
-  bottom: 0px;
-  right: 20px;
+  position: sticky !important;
+  width: 80px;
+  bottom: -18px;
+  left: 300px;
 }
 
 .edit-contacts-dropdown {

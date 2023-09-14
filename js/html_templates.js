@@ -298,6 +298,8 @@ function editTaskModalHTML(task, index) {
               <div id="subtask-edit-box"></div>
               
             </div>
+            <img onclick="editTaskModal(${index})" class="overlay-close-button" src="../assets/img/x-icon.svg" alt="X">
+
             <button onclick="saveEditedTask(${index});" class="button-with-icon edit-submit-task-button" >
               OK
               <img src="../assets/img/checkmark-icon.svg" alt="">
